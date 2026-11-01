@@ -45,7 +45,8 @@ Each decision lists what was chosen, why, and what else was considered. Anything
 - **Decision (updated 2026-11-01)**: host on **Vercel Pro**. Until handover, the project lives in the developer's existing Pro team (Pro is $20 per month including one deploying seat and $20 of usage credit, projects unlimited; verify current terms on Vercel's pricing page). At handover the project, domain and environment variables are transferred to a team owned by the business owner (Vercel's documented project transfer), and the developer drops to a collaborator. The Cloudflare and Netlify comparison is dropped for the MVP and stays a fallback only if cost becomes a problem.
 - **Constitution IX**: hosting under the developer's account is temporary and needs the owner's explicit approval, recorded in [owner-access-plan.md](owner-access-plan.md). The developer pays Pro for now; no business-owned account is changed.
 - **Rationale**: Vercel is the most native host for Next.js on-demand revalidation, previews and Next.js 16, and Pro permits commercial use. This removes the untested-host risk.
-- **Still verify**: that on-demand revalidation by tag works end to end on the deployed site (a short Slice 1 check, not a host comparison), and the project-transfer steps at handover.
+- **Timing (decided 2026-11-01)**: develop locally first. The Vercel project and the first deploy are created at the MVP checkpoint (after US1 and US2) to avoid burning deploys early; only the production branch builds, and a spend alert is set.
+- **Still verify**: that on-demand revalidation by tag works end to end on the deployed site (a short check at the first deploy, not a host comparison), and the project-transfer steps at handover.
 
 ## D6. Styling
 

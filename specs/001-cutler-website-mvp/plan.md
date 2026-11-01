@@ -133,7 +133,7 @@ release-please-config.json           # SemVer tags and changelog from commits
 
 ## Implementation slices (inputs to `/speckit-tasks`)
 
-1. **Foundation and first deploy**: Next.js, strict TypeScript, Tailwind v4, ESLint, Prettier, env conventions, CI checks with commitlint (Conventional Commits) and release-please (SemVer tags, `0.x` until launch, `1.0.0` at launch), a first deploy to Vercel, and a short check that tag-based on-demand revalidation works on the deployed site.
+1. **Foundation and first deploy**: Next.js, strict TypeScript, Tailwind v4, ESLint, Prettier, env conventions, CI checks with commitlint (Conventional Commits) and release-please (SemVer tags, `0.x` until launch, `1.0.0` at launch), local development and CI on GitHub. The Vercel project and first deploy are deferred to the MVP checkpoint (after US1 and US2), where the short check that tag-based on-demand revalidation works on the deployed site is also done.
 2. **Localization**: next-intl routing, `proxy.ts`, messages, language switcher keeping the equivalent page, localized not-found.
 3. **Design system**: `docs/design.md`, tokens, font verification, buttons, links, containers, responsive navigation, accessible states (`frontend-design`, then audits).
 4. **CMS and content**: Sanity project owned by the owner, Studio schemas with both-language validation, GROQ queries, tags, webhook route, image helper.

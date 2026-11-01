@@ -39,10 +39,10 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 - [ ] T008 [P] Add commitlint: `commitlint.config.mjs` extending `@commitlint/config-conventional` (Conventional Commits 1.0.0)
 - [ ] T009 Add `.github/workflows/ci.yml` running lint, typecheck, unit tests, build, and commitlint on pull requests (e2e and Lighthouse added in T102)
 - [ ] T010 [P] Add `release-please-config.json` and `.github/workflows/release.yml` for SemVer tags and changelog from commits, starting at `0.1.0` (`0.x` until launch, `1.0.0` at launch)
-- [ ] T011 (manual) Create the Vercel project in the developer's Pro team linked to the repository (owner approved 2026-11-01); set env var names in Vercel without committing values; first deploy of the scaffold
+- [ ] T011 (manual, deferred to the first deploy at the MVP checkpoint after US2, not before) Create the Vercel project in the developer's Pro team linked to the repository on GitHub (owner approved 2026-11-01); set env var names in Vercel without committing values; deploy only the production branch and skip preview builds for other branches, add a spend alert on the team (check Vercel's current settings); until the domain exists, set `NEXT_PUBLIC_SITE_URL` to the `*.vercel.app` address
 - [ ] T012 Update `CLAUDE.md`: commands (`dev`, `lint`, `typecheck`, `test`, `test:e2e`, `build`, `lhci`), Node 24 LTS, Tailwind v4, no component or animation library without a stated need, Conventional Commits and SemVer
 
-**Checkpoint**: scaffold builds and deploys; CI is green.
+**Checkpoint**: the scaffold builds locally and CI on GitHub is green. The Vercel project (T011) is created later, at the first deploy.
 
 ---
 
@@ -87,11 +87,11 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 - [ ] T039 Implement `src/lib/sanity/eligibility.ts` to pass T038
 - [ ] T040 [P] Write unit tests first in `tests/unit/revalidate-tags.test.ts` for the document-type to tags mapping in [contracts/revalidation-webhook.md](contracts/revalidation-webhook.md)
 - [ ] T041 Implement `src/lib/sanity/revalidate-tags.ts` and `src/app/api/revalidate/route.ts`: POST only (405 otherwise); validate the signature with `parseBody` from `next-sanity/webhook` and `SANITY_REVALIDATE_SECRET` (401 on failure); 400 on a malformed body; call `revalidateTag` for the mapped tags; 200 with the tags; unknown types return 200 and `revalidated: false`
-- [ ] T042 (manual) Configure the Sanity webhook in the owner's project to POST published changes to the deployed `/api/revalidate` with the secret; set `SANITY_REVALIDATE_SECRET` in Vercel
-- [ ] T043 (manual) On the deployed site, verify tag-based on-demand revalidation end to end: change a field, publish, and see the page update within seconds; confirm an unsigned request returns 401 (quickstart V13)
+- [ ] T042 (manual, deferred to the first deploy) Configure the Sanity webhook in the owner's project to POST published changes to the deployed `/api/revalidate` with the secret; set `SANITY_REVALIDATE_SECRET` in Vercel
+- [ ] T043 (manual, deferred to the first deploy) On the deployed site, verify tag-based on-demand revalidation end to end: change a field, publish, and see the page update within seconds; confirm an unsigned request returns 401 (quickstart V13)
 - [ ] T044 [P] Create `tests/fixtures/` with stub Sanity data and `tests/fixtures/widget.js` (a stub of the EasyWeek widget), plus a small local mock Sanity API (`tests/fixtures/mock-sanity-server.ts`) so e2e runs against a production build without the network; make the Sanity API host configurable by an env var used only in tests
 
-**Checkpoint**: both locales route; tokens and fonts exist; the owner can edit content and publishing refreshes the site.
+**Checkpoint**: both locales route; tokens and fonts exist; the owner can edit content in the Studio and the site reads it (publishing refreshes the deployed site once T042 and T043 are done at the first deploy).
 
 ---
 
@@ -253,7 +253,7 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 ## Dependencies and Execution Order
 
 - **Phase 1 (Setup)** has no dependencies. **Phase 2 (Foundational)** depends on Phase 1 and blocks all stories.
-- Within Phase 2: localization (T013 to T019), design system (T020 to T027) and CMS (T028 to T044) can run in parallel after T001 to T003, except that T022 and T023 need T020 and T021, T037 needs T030 to T034 and T036, and T043 needs T041 and T042. T041 to T043 also need the deployed Vercel project (T011), and T056 needs T028 and T035.
+- Within Phase 2: localization (T013 to T019), design system (T020 to T027) and CMS (T028 to T044) can run in parallel after T001 to T003, except that T022 and T023 need T020 and T021, T037 needs T030 to T034 and T036, and T043 needs T041 and T042. T042 and T043 and the real-device checks (T090) need the deployed Vercel project (T011), which is created at the first deploy after the MVP checkpoint (US1 and US2); until then develop and test locally. T056 needs T028 and T035.
 - **US1 (P1)** and **US2 (P1)** can start after Phase 2; US2's switcher needs the header from T053.
 - **US3, US4, US5 (P2)** depend only on Phase 2 and on `src/components/BookingButton.tsx` and `Header.tsx` from US1; they can run in parallel with each other.
 - **US6 (P3)** depends on the pages existing (it wires events into them) but its metadata, sitemap and consent tasks can start earlier.
