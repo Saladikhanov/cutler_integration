@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Design tokens for the light and dark themes are added in T022, from docs/design.md. */
+@theme {
+}
