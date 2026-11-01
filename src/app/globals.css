@@ -102,6 +102,8 @@
   */
   html {
     scrollbar-gutter: stable;
+    /* The sticky header is 4.5rem tall: anchors and focused elements must not end up under it. */
+    scroll-padding-top: 4.5rem;
   }
 
   body {

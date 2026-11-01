@@ -8,9 +8,8 @@ export default async function Home() {
   return (
     <main id="main" className="flex-1 text-ink">
       <section className="flex min-h-[calc(100svh-4.5rem)] flex-col justify-between gap-10 px-4 pt-10 pb-8 sm:px-6">
-        <div aria-hidden="true" />
         {/* The giant wordmark rises into place on load and drifts sideways as the hero scrolls away. */}
-        <div className="overflow-hidden">
+        <div className="my-auto overflow-hidden">
           <div className="drift">
             <div className="rise">
               <Logo variant="wordmark" className="w-full" />

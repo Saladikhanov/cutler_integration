@@ -122,4 +122,14 @@ test.describe("design rules", () => {
     const box = await page.locator("header").boundingBox();
     expect(box?.y).toBe(0);
   });
+
+  test("header controls are at least 44 px tall (touch targets)", async ({ page }) => {
+    await page.goto("/");
+    for (const control of await page.locator("header").getByRole("link").all()) {
+      expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(43.5);
+    }
+    expect(
+      (await page.locator("header button").first().boundingBox())!.height,
+    ).toBeGreaterThanOrEqual(43.5);
+  });
 });

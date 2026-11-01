@@ -15,13 +15,10 @@ export function createExitWatcher(hide: () => void) {
 
   // Whether the booking window is on screen. The widget hides its container with a class (what a tap on its
   // own close button does on phones); on desktop it also locks page scrolling. If its container is not found,
-  // fall back to the scroll lock.
+  // fall back to the scroll lock. A class check only, so watching it forces no style recalculation.
   const widgetVisible = () => {
     const el = document.querySelector(".EWBookingWidget");
-    if (el)
-      return (
-        !el.classList.contains("EWBookingWidget_hidden") && getComputedStyle(el).display !== "none"
-      );
+    if (el) return !el.classList.contains("EWBookingWidget_hidden");
     return document.body.style.overflow === "hidden";
   };
 
@@ -59,11 +56,12 @@ export function createExitWatcher(hide: () => void) {
       stopObserving();
       if (hasOurStep()) history.back();
     });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      subtree: true,
-      attributeFilter: ["style", "class"],
-    });
+    // Watch only the widget's container and the body, not the whole page.
+    const targets = [document.querySelector(".EWBookingWidget"), document.body];
+    for (const target of targets) {
+      if (target)
+        observer.observe(target, { attributes: true, attributeFilter: ["style", "class"] });
+    }
   }
 
   function start() {
