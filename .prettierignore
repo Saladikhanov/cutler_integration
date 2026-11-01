@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+build
+coverage
+test-results
+playwright-report
+.lighthouseci
+package-lock.json
+public
+.claude
+.specify
+specs
+docs
+AGENTS.md
+CLAUDE.md
