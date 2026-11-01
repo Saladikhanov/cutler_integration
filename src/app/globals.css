@@ -1,38 +1,44 @@
 @import "tailwindcss";
 
 /*
-  Design tokens, defined once (docs/design.md, constitution VIII).
+  Design tokens, defined once (docs/design.md v3, constitution VIII).
   Components use these tokens through Tailwind utilities (bg-bg, text-ink, text-display-xl, ...)
   and never set colors, font sizes, line heights or weights ad hoc.
-  The brand is black and white (the owner's logo); there are no brand accent colors.
-  Re-run scripts/check-contrast.mjs after any change.
+  The accent is a neon fill with dark text on it: it is never text, a thin line or a focus ring on the
+  light theme, where it fails contrast (tests/unit/contrast.test.ts checks this).
 */
 
 /* Raw colors per theme. Light is the base; dark follows the device, or data-theme="dark". */
 :root {
   color-scheme: light;
-  --bg: #e4e4e0;
-  --surface: #f2f2ef;
-  --ink: #000000;
-  --muted: #4d4d4d;
+  --bg: #fefefe;
+  --surface: #f2f2f0;
+  --ink: #222222;
+  --muted: #5a5a5a;
+  --accent: #edee1b;
+  --on-accent: #222222;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0d0d0d;
-    --surface: #1a1a1a;
-    --ink: #f2f2ef;
-    --muted: #a6a6a6;
+    --bg: #222222;
+    --surface: #2c2c2c;
+    --ink: #fefefe;
+    --muted: #a8a8a8;
+    --accent: #edee1b;
+    --on-accent: #222222;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0d0d0d;
-  --surface: #1a1a1a;
-  --ink: #f2f2ef;
-  --muted: #a6a6a6;
+  --bg: #222222;
+  --surface: #2c2c2c;
+  --ink: #fefefe;
+  --muted: #a8a8a8;
+  --accent: #edee1b;
+  --on-accent: #222222;
 }
 
 /*
@@ -44,6 +50,8 @@
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
 }
 
 @theme {
@@ -81,12 +89,6 @@
   --text-small--line-height: 1.45;
   --text-small--letter-spacing: 0.005em;
   --text-small--font-weight: 400;
-
-  /*
-    The one signature gradient, "the fade": solid ink that fades into the ground, like a skin fade.
-    One thin band; never behind text and never a page background.
-  */
-  --gradient-fade: linear-gradient(100deg, var(--ink) 0%, var(--ink) 18%, var(--bg) 100%);
 }
 
 @layer base {
@@ -118,35 +120,94 @@
   /* Visible keyboard focus everywhere (docs/design.md, quality floor). */
   :focus-visible {
     outline: 3px solid var(--ink);
-    outline-offset: 2px;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--accent);
   }
 }
 
 /*
-  The one orchestrated moment (docs/design.md, motion): the hero headline reveals line by line and
-  the drawn stroke draws once. Only for visitors who have not asked for reduced motion; without
-  this block the content is simply there.
+  Primary button: neon fill with dark text at rest (visible on touch devices, where there is no hover);
+  on hover or tap an ink fill sweeps in from the left and the text switches to the page color.
 */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    animation: reveal 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 
-  .reveal-late {
-    animation-delay: 140ms;
-  }
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+  transform: translateX(-101%);
+  transition: transform 350ms cubic-bezier(0.7, 0, 0.2, 1);
+}
 
-  /* The one non-compositor animation: a single decorative stroke drawn once, never repeated. */
-  .draw {
-    stroke-dasharray: 1;
-    animation: draw 700ms ease-out 500ms both;
+.btn-primary:hover::before,
+.btn-primary:active::before {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::before {
+    transition: none;
   }
 }
 
-@keyframes reveal {
+/*
+  Motion (docs/design.md): on first load the wordmark rises into place, then the header fades in and
+  the tagline and Book button rise; the wordmark drifts sideways as the hero scrolls away. Everything
+  uses transform and opacity, and only runs for visitors who have not asked for reduced motion;
+  without this block the content is simply there.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .fade-in {
+    animation: fade-in 800ms ease-out 600ms both;
+  }
+
+  .lift {
+    animation: lift 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms both;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .drift {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(0.35em);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lift {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
 
   to {
@@ -155,12 +216,8 @@
   }
 }
 
-@keyframes draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-
+@keyframes drift {
   to {
-    stroke-dashoffset: 0;
+    transform: translateX(-5vw);
   }
 }

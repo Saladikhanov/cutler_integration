@@ -14,7 +14,7 @@ const files = {
 
 /**
  * The official logo, drawn with a CSS mask in the current text color so it follows the theme
- * (ink on concrete, off-white on black) from a single file. Use the wordmark below about 160 px
+ * (dark ink on white, white on dark) from a single file. Use the wordmark below about 160 px
  * wide: the frame and the small lines of the full lockup are not readable there.
  */
 export function Logo({ variant = "full", className = "" }: LogoProps) {

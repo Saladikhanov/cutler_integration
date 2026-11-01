@@ -28,11 +28,14 @@
     "home": "Back to home"
   },
   "Home": {
-    "headlineFirst": "Barbershop",
-    "headlineSecond": "in Dnipro",
+    "headline": "Barbershop in Dnipro",
     "lead": "Book your barber online."
   },
   "ThemeToggle": {
     "label": "Dark theme"
+  },
+  "Header": {
+    "today": "Today {hours}",
+    "closedToday": "Closed today"
   }
 }

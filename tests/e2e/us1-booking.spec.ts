@@ -90,3 +90,34 @@ test.describe("without JavaScript", () => {
     });
   }
 });
+
+test.describe("design rules", () => {
+  for (const { path, book } of locales) {
+    test(`the Book button shows the neon fill at rest, with no hover needed (${path})`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+      const button = page.getByRole("link", { name: book, exact: true }).last();
+      await expect(button).toHaveCSS("background-color", "rgb(237, 238, 27)");
+      await expect(button).toHaveCSS("color", "rgb(34, 34, 34)");
+    });
+  }
+
+  test("nothing scrolls sideways at 320 px", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 640 });
+    for (const { path } of locales) {
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, path).toBeLessThanOrEqual(0);
+    }
+  });
+
+  test("the header stays fixed to the top while scrolling", async ({ page }) => {
+    await page.goto("/");
+    await page.evaluate(() => window.scrollTo(0, 400));
+    const box = await page.locator("header").boundingBox();
+    expect(box?.y).toBe(0);
+  });
+});

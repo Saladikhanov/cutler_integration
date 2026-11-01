@@ -1,75 +1,62 @@
-# UI plan: User Story 1 (home hero, header, footer, booking button)
+# UI plan: User Story 1, home page rebuild (v2, "the sign, up close")
 
-**Status**: draft for review, 2026-11-01 | **Tasks**: T051 to T055 | **Design**: [docs/design.md](../../docs/design.md)
+**Status**: draft for review, 2026-11-01 | **Replaces**: the v1 plan (concrete grey, fade band, drawn arrow) | **Design**: [docs/design.md](../../docs/design.md) v3 | **Reference**: [docs/design-reference/sign-up-close.html](../../docs/design-reference/sign-up-close.html) | **Constitution**: v1.5.0, Principle VIII
 
-Nothing here adds a visual rule. It applies the existing tokens, type steps and components to the first screen.
+The direction, palette and motion are approved. This plan only says how to build them. It adds no visual rule.
 
 ## Scope
 
-In: `BookingProvider`, `BookingButton`, `Header` (with the theme toggle), `Footer`, the home hero and the fade band.
-Out (later stories): language switcher (US2), services board (US3), barbers (US4), contact block and mobile Book/Call bar (US5), consent banner and analytics (US6).
+In: new color tokens, the fixed header, the giant-wordmark hero, the footer, the Book button states, and the touch-safe rules. The booking provider, loader and button logic already built stay as they are.
 
-## First screen, phone (320 to 430 px)
+Out (later stories, same patterns): services rows (US3), barber cards (US4), contact block and mobile Book/Call bar (US5), language switcher (US2), consent and analytics (US6). The "what we do" beat from the mockup waits for text from the owner; there is no field for it yet and nothing is invented.
 
-```text
-┌──────────────────────────┐
-│ [CUTLER wordmark]  [◐] [Записатися] │  header: wordmark = link to home
-├──────────────────────────┤
-│                          │
-│ Барбершоп                │  display-xl, 900, left aligned
-│ у Дніпрі                 │
-│                          │
-│ Онлайн-запис до барбера. │  body, muted, max 70 characters
-│                          │
-│ [   Записатися   ]       │  primary Button, full width on phones, 44 px or more
-│   ~ drawn arrow ~        │  one aria-hidden SVG stroke
-├━━━━━━━━ fade band ━━━━━━━┤  6 px, the one gradient, once per page
-│ (next sections later)    │
-└──────────────────────────┘
-Footer: full logo lockup, then small text. Book button is also in the header.
-```
+## What changes in the code
 
-Tablet and up: the same, with the header showing the wordmark left and the theme toggle and Book button right; the hero headline stays on two lines and the area to its right stays empty until a real photo exists (no placeholder image, no stock).
+| Area | Change |
+|---|---|
+| `src/app/globals.css` | New tokens: bg `#FEFEFE`/`#222222`, surface `#F2F2F0`/`#2C2C2C`, ink `#222222`/`#FEFEFE`, muted `#5A5A5A`/`#A8A8A8`, accent `#EDEE1B`, on-accent `#222222`. Remove the fade gradient and the arrow, reveal and draw animations. Add the new motion (wordmark rise, header fade, tagline rise, scroll drift, rule draw) inside `prefers-reduced-motion: no-preference`. Focus ring: 3 px ink outline with a neon halo. |
+| `src/lib/theme/*`, `layout.tsx` | `viewport.themeColor` values follow the new bg tokens (`#fefefe`, `#222222`). The theme script and toggle logic are unchanged. |
+| `tests/unit/tokens.test.ts` | Update the expected token names (adds accent and on-accent); keep the bans on arbitrary values, `dark:` variants and default palette colors. |
+| `src/components/Button.tsx` | Primary button at rest wears the neon with dark text; hover fills ink with the page color (a left-to-right fill); `:active` matches hover (touch). Secondary stays outlined in ink. |
+| `src/components/Logo.tsx` | Add a hero variant that is simply the wordmark at full width. Fix the stale comment. |
+| Header, Footer, `page.tsx` | Rebuilt as below. |
 
-## Components
+## Pieces
 
-| Component | Server or client | Notes |
-|---|---|---|
-| `BookingProvider` | client | Creates the loader once, re-creates the widget when the locale changes, listens to booking-frame messages. Effects are safe to re-run (Cache Components hides routes with `<Activity>`). Needs only the branch id, fallback URL and locale as props from the layout. |
-| `BookingButton` | client | A real `<a href>` to the fallback URL, styled with the existing `buttonClasses`. On click it opens the widget; if the widget cannot open it follows the link. Never shows a confirmation. |
-| `Header` | server, with the toggle and button as client islands | Wordmark link, theme toggle, Book button. Visible on every page (FR-003). |
-| `Footer` | server | Full logo lockup, the shop name. No unconfirmed facts. |
-| Hero | server (in `page.tsx`) | Real `<h1>`, text only, on a solid ground. |
+**Header** (server, with small client islands)
+- Fixed. A solid ground (page color) so it never overlaps content as it did in the mockup. Shop name and the Dnipro local time on the left, navigation in the middle (empty until pages exist), theme toggle and, later, the language switcher on the right, and a persistent Book button (FR-003).
+- **Local time**: a small client component that renders after hydration (no server and client mismatch), using `Intl.DateTimeFormat` with the `Europe/Kyiv` zone. It shows only the time, never opening hours.
 
-Data: the Book button needs the fallback URL and the Dnipro branch id. Both come from Shop Details in Sanity when entered; until then the button uses `NEXT_PUBLIC_EASYWEEK_BOOKING_URL` (default `https://cutler.easyweek.com.ua/`) and the widget opens on its branch picker. So booking works on day one, before the owner has entered anything.
+**Hero** (server)
+- One screen tall. The wordmark across the full width as an inline or masked graphic with a real `<h1>` ("Барбершоп у Дніпрі") that is visible text, not the logo. Tagline bottom left, Book button bottom right.
+- **Photo slot**: renders only when the owner has supplied a hero photo in the Studio (a new `heroImage` field in Site settings, added with that photo). With no photo, the hero is just the wordmark and the text: no grey placeholder on the live site (real photography only, constitution V).
+- On phones the layout stacks: wordmark, photo (if any) overlapping its lower edge, tagline, Book.
 
-## Copy (needs the owner's approval, FR-010)
+**Footer** (server): the full logo lockup, large. Contact details join it with US5.
 
-Only facts already known: it is a barbershop, in Dnipro, with online booking.
+**Motion** (CSS plus one tiny client script)
+- Wordmark rises on load; header fades in; tagline and Book rise after it.
+- Scroll drift of the wordmark and the photo uses transform only, driven by one passive scroll listener (or CSS scroll-driven animation where supported).
+- No magnetic or cursor-following effects. Everything is off under reduced motion; content is visible without waiting for any animation.
 
-| Key | Ukrainian | English |
-|---|---|---|
-| `Home.headline` | Барбершоп у Дніпрі | Barbershop in Dnipro |
-| `Home.lead` | Онлайн-запис до барбера. | Book your barber online. |
-| `Common.book` | Записатися | Book |
+**Touch and focus rules** (constitution VIII)
+- Nothing depends on hover: the Book button wears the neon at rest; `:active` mirrors `:hover`; later barber cards always show their Book strip on devices with no hover.
+- Keyboard focus: ink outline with a neon halo; the neon is never the only focus signal.
 
-No claims about services, prices, speed or ratings.
+## Booking window (option A)
 
-## Motion and detail
+Kept as built: the Book buttons open the EasyWeek panel, with the plain link as a fallback. Two follow-ups, not part of this slice:
+1. A dedicated booking page with the EasyWeek frame embedded in our layout, if the embedded frame turns out to support deep links to a barber or service (not yet tested).
+2. EasyWeek's own appearance settings, to be checked by someone with admin access (the neon may be settable as the booking color).
 
-- One moment: the headline reveals line by line (under 600 ms) and the drawn arrow strokes once. Both disabled under `prefers-reduced-motion`; content is visible without them.
-- One hand-drawn stroke on the page, `aria-hidden`, in `--color-ink`.
+## Tests and checks
 
-## Accessibility and performance
-
-- One `<h1>` (the headline), real text; the logo is an image-like link, not a heading.
-- Header Book button reachable first after the skip link; focus ring unchanged.
-- No images on this screen, so no layout shift; fonts already optimized.
-- The widget script loads after first paint when idle, not before.
-- After building: audit with `web-design-guidelines` and `vercel-react-best-practices`, in both themes and both languages.
+- Update `tokens.test.ts`; add a unit test that each text and ground pair in the contrast table of `docs/design.md` meets its minimum (this becomes `scripts/check-contrast.mjs`, T096, if time allows now).
+- E2E: the existing US1 tests stay green; add a check that the Book button is visible without hover on a no-hover device profile and that no horizontal scroll appears at 320 px.
+- After building: audit with `web-design-guidelines` and `vercel-react-best-practices`, in both themes and both languages, light and dark, desktop and phone.
 
 ## Decisions for you
 
-1. **Headline and lead copy** above: approve, or give me the owner's wording.
-2. **Hero photo**: skip it for now (recommended: there is no photo and no Sanity field yet) and add a `heroImage` field to Site settings when a real photo arrives.
-3. **Hand-drawn arrow** by the Book button: keep it (design doc allows up to three per page) or drop it.
+1. **Hero photo**: confirm that without a photo the hero shows only the wordmark and text (no placeholder), and that I add a `heroImage` field to Site settings when the owner sends a photo.
+2. **Local time in the header**: keep it? It is a nice live detail, and it shows only the time.
+3. **Header**: fixed with a solid ground (recommended), or fixed and transparent over the hero as in the mockup (it overlaps text when scrolling).

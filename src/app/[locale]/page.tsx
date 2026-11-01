@@ -1,41 +1,30 @@
 import { getTranslations } from "next-intl/server";
 import { BookingButton } from "@/components/BookingButton";
-import { Container } from "@/components/Container";
+import { Logo } from "@/components/Logo";
 
 export default async function Home() {
   const t = await getTranslations("Home");
 
   return (
     <main id="main" className="flex-1 text-ink">
-      <section className="py-12 sm:py-20">
-        <Container>
-          <h1 className="font-display text-display-xl">
-            <span className="reveal block">{t("headlineFirst")}</span>{" "}
-            <span className="reveal reveal-late block">{t("headlineSecond")}</span>
-          </h1>
-          <p className="mt-6 max-w-prose text-body text-muted">{t("lead")}</p>
-          <div className="mt-8 flex items-center gap-6">
-            <BookingButton className="w-full sm:w-auto sm:min-w-56" />
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 120 60"
-              className="hidden h-14 w-28 text-ink sm:block"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path
-                className="draw"
-                pathLength="1"
-                d="M112 10C82 4 42 18 14 40M14 40l15-1M14 40l5-15"
-              />
-            </svg>
+      <section className="flex min-h-[calc(100svh-4.5rem)] flex-col justify-between gap-10 px-4 pt-10 pb-8 sm:px-6">
+        <div aria-hidden="true" />
+        {/* The giant wordmark rises into place on load and drifts sideways as the hero scrolls away. */}
+        <div className="overflow-hidden">
+          <div className="drift">
+            <div className="rise">
+              <Logo variant="wordmark" className="w-full" />
+            </div>
           </div>
-        </Container>
+        </div>
+        <div className="lift flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="font-display text-display-m">{t("headline")}</h1>
+            <p className="mt-2 max-w-prose text-body text-muted">{t("lead")}</p>
+          </div>
+          <BookingButton className="w-full sm:w-auto sm:min-w-56" />
+        </div>
       </section>
-      <div aria-hidden="true" className="h-1.5 w-full bg-(image:--gradient-fade)" />
     </main>
   );
 }

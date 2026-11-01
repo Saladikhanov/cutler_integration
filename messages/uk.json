@@ -28,11 +28,14 @@
     "home": "На головну"
   },
   "Home": {
-    "headlineFirst": "Барбершоп",
-    "headlineSecond": "у Дніпрі",
+    "headline": "Барбершоп у Дніпрі",
     "lead": "Онлайн-запис до барбера."
   },
   "ThemeToggle": {
     "label": "Темна тема"
+  },
+  "Header": {
+    "today": "Сьогодні {hours}",
+    "closedToday": "Сьогодні зачинено"
   }
 }

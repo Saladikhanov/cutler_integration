@@ -20,19 +20,26 @@ describe("design tokens", () => {
 
   it("defines the same color tokens in the light base and in both dark blocks", () => {
     const names = (block: string) =>
-      [...block.matchAll(/^\s*(--[a-z]+):/gm)].map((m) => m[1]).sort();
+      [...block.matchAll(/^\s*(--[a-z-]+):/gm)].map((m) => m[1]).sort();
     const light = css.match(/:root \{([^}]*)\}/)?.[1] ?? "";
     const darkMedia =
       css.match(/prefers-color-scheme: dark\) \{\s*:root:not\([^)]*\) \{([^}]*)\}/)?.[1] ?? "";
     const darkAttr = css.match(/:root\[data-theme="dark"\] \{([^}]*)\}/)?.[1] ?? "";
-    expect(names(light)).toEqual(["--bg", "--ink", "--muted", "--surface"]);
+    expect(names(light)).toEqual([
+      "--accent",
+      "--bg",
+      "--ink",
+      "--muted",
+      "--on-accent",
+      "--surface",
+    ]);
     expect(names(darkMedia)).toEqual(names(light));
     expect(names(darkAttr)).toEqual(names(light));
   });
 
   it("keeps the two dark blocks identical", () => {
     const values = (block: string) =>
-      [...block.matchAll(/(--[a-z]+): (#[0-9a-fA-F]{6})/g)]
+      [...block.matchAll(/(--[a-z-]+): (#[0-9a-fA-F]{6})/g)]
         .map((m) => `${m[1]}=${m[2].toLowerCase()}`)
         .sort();
     const darkMedia =

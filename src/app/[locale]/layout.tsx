@@ -33,8 +33,8 @@ const onest = Onest({
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e4e4e0" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0d0d" },
+    { media: "(prefers-color-scheme: light)", color: "#fefefe" },
+    { media: "(prefers-color-scheme: dark)", color: "#222222" },
   ],
 };
 
@@ -73,7 +73,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
         </a>
         <NextIntlClientProvider>
           <BookingProvider branchId={shop?.easyweekBranchId} fallbackUrl={shop?.bookingFallbackUrl}>
-            <Header />
+            <Header openingHours={shop?.openingHours} />
             {children}
             <Footer />
           </BookingProvider>
