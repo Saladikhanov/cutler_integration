@@ -52,13 +52,13 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 
 ### Localization (Slice 2)
 
-- [ ] T013 [P] Write unit tests first for the equivalent-path helper in `tests/unit/equivalent-path.test.ts`: `/` to `/en`, `/barbers` to `/en/barbers`, `/barbers/[slug]` to `/en/barbers/[slug]` and back; unknown paths fall back to the other language's home page
-- [ ] T014 Implement `src/lib/seo/equivalent-path.ts` to pass T013
-- [ ] T015 Create `src/i18n/routing.ts` with `defineRouting`: locales `uk` and `en`, `defaultLocale: 'uk'`, `localePrefix: 'as-needed'`, browser-language detection off (`localeDetection: false`; verify the option name against the installed next-intl)
-- [ ] T016 [P] Create `src/i18n/request.ts` and `src/i18n/navigation.ts` (locale-aware `Link`, `usePathname`, `useRouter` from next-intl)
-- [ ] T017 Create `src/proxy.ts` (next-intl locale routing; Next.js 16 uses `proxy.ts`, not `middleware.ts`) with a matcher excluding `api`, `_next`, `_vercel` and paths containing a dot
-- [ ] T018 [P] Create `messages/uk.json` and `messages/en.json` with interface keys only: navigation, "Book" and "Call", footer labels, consent banner, not-found, language switcher label, cookie settings link; no business facts
-- [ ] T019 Create `src/app/[locale]/layout.tsx`: `<html lang>` from the locale, `NextIntlClientProvider`, `generateStaticParams` for both locales, a skip-to-content link
+- [X] T013 [P] Write unit tests first for the equivalent-path helper in `tests/unit/equivalent-path.test.ts`: `/` to `/en`, `/barbers` to `/en/barbers`, `/barbers/[slug]` to `/en/barbers/[slug]` and back; unknown paths fall back to the other language's home page
+- [X] T014 Implement `src/lib/seo/equivalent-path.ts` to pass T013
+- [X] T015 Create `src/i18n/routing.ts` with `defineRouting`: locales `uk` and `en`, `defaultLocale: 'uk'`, `localePrefix: 'as-needed'`, browser-language detection off (`localeDetection: false`; verify the option name against the installed next-intl)
+- [X] T016 [P] Create `src/i18n/request.ts` and `src/i18n/navigation.ts` (locale-aware `Link`, `usePathname`, `useRouter` from next-intl)
+- [X] T017 Create `src/proxy.ts` (next-intl locale routing; Next.js 16 uses `proxy.ts`, not `middleware.ts`) with a matcher excluding `api`, `_next`, `_vercel` and paths containing a dot
+- [X] T018 [P] Create `messages/uk.json` and `messages/en.json` with interface keys only: navigation, "Book" and "Call", footer labels, consent banner, not-found, language switcher label, cookie settings link; no business facts
+- [X] T019 Create `src/app/[locale]/layout.tsx`: `<html lang>` from the locale, `NextIntlClientProvider`, `generateStaticParams` for both locales, a skip-to-content link
 
 ### Design system (Slice 3)
 
