@@ -2,7 +2,8 @@
   "Common": {
     "book": "Book",
     "call": "Call",
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "logoLabel": "CUTLER barbershop"
   },
   "Nav": {
     "home": "Home",

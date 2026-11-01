@@ -50,8 +50,7 @@ export function generateStaticParams() {
 export default async function RootLayout({ children }: LayoutProps<"/[locale]">) {
   const locale = await rootLocale();
   if (!hasLocale(routing.locales, locale)) notFound();
-  const t = await getTranslations("Common");
-  const shop = await getShopDetails();
+  const [t, shop] = await Promise.all([getTranslations("Common"), getShopDetails()]);
 
   return (
     <html
@@ -61,6 +60,8 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
       suppressHydrationWarning
     >
       <head>
+        {/* The booking widget loads from here; connect early so the first click opens fast. */}
+        <link rel="preconnect" href="https://booking.easyweek.com.ua" />
         <ThemeScript />
       </head>
       <body className="flex min-h-dvh flex-col">

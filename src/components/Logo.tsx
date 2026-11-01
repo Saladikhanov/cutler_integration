@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 type LogoProps = {
   /** "full" is the framed lockup; "wordmark" is the CUTLER letters only, for small sizes. */
   variant?: "full" | "wordmark";
@@ -16,11 +18,13 @@ const files = {
  * wide: the frame and the small lines of the full lockup are not readable there.
  */
 export function Logo({ variant = "full", className = "" }: LogoProps) {
+  const t = useTranslations("Common");
   const { src, ratio } = files[variant];
   return (
     <span
       role="img"
-      aria-label="CUTLER barbershop"
+      aria-label={t("logoLabel")}
+      translate="no"
       className={`block bg-current ${className}`.trim()}
       style={{
         aspectRatio: ratio,

@@ -98,6 +98,23 @@
     line-height: var(--text-body--line-height);
   }
 
+  /* No double-tap zoom delay on controls; the tap highlight is set on purpose, from the theme. */
+  a,
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--ink) 15%, transparent);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   /* Visible keyboard focus everywhere (docs/design.md, quality floor). */
   :focus-visible {
     outline: 3px solid var(--ink);
@@ -119,6 +136,7 @@
     animation-delay: 140ms;
   }
 
+  /* The one non-compositor animation: a single decorative stroke drawn once, never repeated. */
   .draw {
     stroke-dasharray: 1;
     animation: draw 700ms ease-out 500ms both;
@@ -127,12 +145,12 @@
 
 @keyframes reveal {
   from {
-    clip-path: inset(0 0 100% 0);
+    opacity: 0;
     transform: translateY(0.35em);
   }
 
   to {
-    clip-path: inset(0);
+    opacity: 1;
     transform: none;
   }
 }

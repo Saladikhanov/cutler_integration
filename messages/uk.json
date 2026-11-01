@@ -2,7 +2,8 @@
   "Common": {
     "book": "Записатися",
     "call": "Подзвонити",
-    "skipToContent": "До основного вмісту"
+    "skipToContent": "До основного вмісту",
+    "logoLabel": "CUTLER, барбершоп"
   },
   "Nav": {
     "home": "Головна",

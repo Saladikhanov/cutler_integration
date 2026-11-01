@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { buttonClasses, type ButtonVariant } from "@/components/Button";
 import type { BookingIntent } from "@/lib/booking/intents";
 import { useBooking } from "./BookingProvider";
@@ -24,17 +24,26 @@ export function BookingButton({
 }: Props) {
   const t = useTranslations("Common");
   const { fallbackUrl, open } = useBooking();
+  const [pending, setPending] = useState(false);
 
   async function onClick(event: MouseEvent<HTMLAnchorElement>) {
     // Leave new-tab and modified clicks to the browser.
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
       return;
     event.preventDefault();
-    if (!(await open(intent))) window.location.assign(fallbackUrl);
+    setPending(true);
+    const opened = await open(intent);
+    setPending(false);
+    if (!opened) window.location.assign(fallbackUrl);
   }
 
   return (
-    <a href={fallbackUrl} onClick={onClick} className={buttonClasses(variant, className)}>
+    <a
+      href={fallbackUrl}
+      onClick={onClick}
+      aria-busy={pending}
+      className={buttonClasses(variant, `aria-busy:cursor-progress ${className ?? ""}`.trim())}
+    >
       {t("book")}
     </a>
   );

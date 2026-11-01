@@ -126,7 +126,7 @@ Phone, home                           Tablet and up, home
 
 ## Motion
 
-- **One orchestrated moment**: on first load the hero headline reveals line by line (a short clip and shift, under 600 ms), and a drawn stroke draws once. Nothing else animates on its own.
+- **One orchestrated moment**: on first load the hero headline reveals line by line (a short fade and shift, under 600 ms, on opacity and transform only), and a drawn stroke draws once. Nothing else animates on its own.
 - **Responses to the visitor** (hover, focus, press, opening a menu or the widget) are 120 to 180 ms position or color changes.
 - **`prefers-reduced-motion: reduce`**: no reveal, no stroke drawing; transitions drop to none. Content is never hidden waiting for an animation.
 - **Theme change** is instant so there is no flash.
