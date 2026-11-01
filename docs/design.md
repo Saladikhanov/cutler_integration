@@ -26,6 +26,18 @@ First plan, then reviewed against the brief and against the usual generated-desi
 
 Also avoided: tracked all-caps labels above headings, middle-dot meta strings, "→" on buttons, monospace data labels, numbered markers (nothing here is a sequence), and accenting a single word in a headline.
 
+## Logo analysis (2026-11-01, from the logo file the owner supplied)
+
+The logo is black on white: a heavy sans wordmark "CUTLER", "est.2018" above and "BARBERSHOP" letter-spaced below, inside a rectangular frame that the two small texts interrupt.
+
+- **Fonts (best visual match, not proven):** "CUTLER" resembles Barlow Condensed ExtraBold or Black (Latin only); "est.2018" resembles Montserrat ExtraBold; "BARBERSHOP" resembles a Rockwell-style bold slab (closest free: Roboto Slab 800 or Bitter 800, both with Cyrillic). The "E" and "L" look hand-adjusted, so the wordmark is probably customized and no font will match exactly.
+- **Closest Cyrillic-capable match for headlines:** Roboto Condensed 800 or 900 (Oswald 700 is taller and narrower). The exact-looking Latin matches (Barlow Condensed, Saira, Anton, Fjalla One) have no Ukrainian letters.
+- **Asset problems:** the file is an SVG that only wraps a 1280 x 719 PNG, so it does not scale cleanly, and its background is opaque white (it shows as a white box on the grey and dark themes). It is black only, so the dark theme needs a white version. We need the original vector (or a transparent PNG at high resolution) and a white version.
+- **Brand colors:** none. The identity is black and white. The red and blue in this document were invented for the concept and are not from the brand.
+- **Motif to reuse:** the frame whose border is interrupted by text. Section headings and the services board can use the same device (a rule that stops where the label sits).
+
+Proposed revisions if the owner agrees (not applied yet): echo the logo with a heavy condensed sans for headlines instead of Unbounded, make the palette monochrome concrete and ink with the gradient as the single accent, and use the interrupted-frame device for headings.
+
 ## Principles
 
 1. **Spend boldness in one place**: the large display headline and the one gradient band. Everything else is quiet.
@@ -161,7 +173,7 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Open items
 
-1. Logo, brand colors and fonts, if the owner has them (changes the accent stops and the contrast check).
+1. Original vector logo with a transparent background and a white version for the dark theme; confirm whether the brand is strictly black and white (changes the accent and the contrast check).
 2. Confirm the font pair visually (T021).
 3. Photography for the hero and the barbers, and the consent for client photos.
 4. Decide whether the gradient band also appears as a loading or focus detail (default: no).
