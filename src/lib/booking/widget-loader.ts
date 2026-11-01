@@ -2,7 +2,7 @@ import { applyIntent, type BookingIntent, type WidgetInstance } from "./intents"
 
 export type LoaderState = "idle" | "loading" | "ready" | "failed";
 
-type WidgetConstructor = new (options: { url: string }) => WidgetInstance;
+export type WidgetConstructor = new (options: { url: string }) => WidgetInstance;
 
 type LoaderOptions = {
   scriptUrl: string;
@@ -93,14 +93,24 @@ export function createWidgetLoader(options: LoaderOptions) {
 
 export type WidgetLoader = ReturnType<typeof createWidgetLoader>;
 
-/** Injects a script once and resolves when it has loaded. */
+const injected = new Map<string, Promise<void>>();
+
+/** Injects a script once per address and resolves when it has loaded. */
 export function injectScript(src: string): Promise<void> {
-  return new Promise((resolve, reject) => {
+  const existing = injected.get(src);
+  if (existing) return existing;
+  const promise = new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("script failed to load"));
+    script.onerror = () => {
+      injected.delete(src);
+      script.remove();
+      reject(new Error("script failed to load"));
+    };
     document.head.appendChild(script);
   });
+  injected.set(src, promise);
+  return promise;
 }

@@ -27,7 +27,9 @@
     "home": "На головну"
   },
   "Home": {
-    "comingSoon": "Сайт скоро запрацює"
+    "headlineFirst": "Барбершоп",
+    "headlineSecond": "у Дніпрі",
+    "lead": "Онлайн-запис до барбера."
   },
   "ThemeToggle": {
     "label": "Темна тема"

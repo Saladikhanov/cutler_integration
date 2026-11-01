@@ -27,7 +27,9 @@
     "home": "Back to home"
   },
   "Home": {
-    "comingSoon": "The website is coming soon"
+    "headlineFirst": "Barbershop",
+    "headlineSecond": "in Dnipro",
+    "lead": "Book your barber online."
   },
   "ThemeToggle": {
     "label": "Dark theme"

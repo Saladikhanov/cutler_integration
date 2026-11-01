@@ -4,7 +4,11 @@ import { locale as rootLocale } from "next/root-params";
 import { Onest, Roboto_Condensed } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { BookingProvider } from "@/components/BookingProvider";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { ThemeScript } from "@/components/ThemeScript";
+import { getShopDetails } from "@/lib/sanity/queries";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -47,6 +51,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
   const locale = await rootLocale();
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations("Common");
+  const shop = await getShopDetails();
 
   return (
     <html
@@ -58,14 +63,20 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
       <head>
         <ThemeScript />
       </head>
-      <body>
+      <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-bg focus:p-2 focus:text-ink"
         >
           {t("skipToContent")}
         </a>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <BookingProvider branchId={shop?.easyweekBranchId} fallbackUrl={shop?.bookingFallbackUrl}>
+            <Header />
+            {children}
+            <Footer />
+          </BookingProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
