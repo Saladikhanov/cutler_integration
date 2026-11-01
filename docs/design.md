@@ -1,6 +1,6 @@
 # CUTLER design direction
 
-**Status**: draft v2, 2026-11-01. Direction chosen by the developer ("echo the logo"); the owner has not yet reviewed it.
+**Status**: draft v3, 2026-11-01. Direction approved by the developer from the mockup `docs/design-reference/sign-up-close.html`; the owner has not yet reviewed it.
 **Scope**: the public site (home, barbers list, barber pages) in Ukrainian and English, light and dark themes.
 **Spec**: FR-019, FR-020, FR-031, SC-006, SC-011 in `specs/001-cutler-website-mvp/spec.md`; constitution VII and VIII.
 
@@ -10,24 +10,19 @@
 - **Brand colors**: none. The identity is black and white.
 - Still wanted (not blocking): the original vector logo, to replace the traced one; photography, and photo rules.
 
-## Concept: "Concrete, ink and a frame"
+## Concept: "The sign, up close"
 
-The logo is the brief. The site speaks the same language:
+The logo is a shop sign. The site shows it close up: one giant wordmark across the hero, and everything else small and quiet. Approved by the developer on 2026-11-01 from `docs/design-reference/sign-up-close.html` (a throwaway mockup; its colors are approximate, the tokens below are authoritative).
 
-- **Ink on concrete**: pure black type on a cool concrete grey (light theme), off-white type on a deep black ground (dark theme). No brand accent colors, because the brand has none.
-- **The frame**: the logo's border is interrupted by its labels. The site reuses that device for headings, the services board and the contact block: a 3 px rule that stops where the label sits.
-- **The fade**: a haircut fade is a gradient, so the one signature gradient is tonal: solid ink that fades into the ground. It is the only gradient, a thin band, used once per page.
-- **Heavy condensed type**, like the wordmark, for headlines.
+- **Scale contrast**: two sizes only, huge and tiny. The CUTLER wordmark spans the full width; labels, the tagline and the interface are small.
+- **Depth without 3D**: a real photo overlaps the wordmark, so some letters sit behind it. Until real photos exist, the slot is a clearly labeled placeholder.
+- **Starker ground**: white with near-black type; in the dark theme `#222222` with white type. One neon yellow-green accent, used as a highlighter fill with dark text (see Color tokens). The energy comes from scale, photography, motion and the neon.
+- **Small live details**: the Dnipro local time in the header. Nothing about opening hours until the owner confirms them.
+- **Scroll beats**: short blocks that meet the visitor one at a time (what we do, services, barbers), each under a heavy rule.
+- **Precise hover**: a services row lights up in the accent; "Book" slides up from the bottom of a barber photo, and is always visible where there is no hover (phones).
+- **Inspiration, not a rule**: the restraint and the scale of monolithstudio.com. No 3D object, no video, no animation library.
 
-### Review against the brief
-
-Version 1 of this document proposed a red and blue "barber pole" accent and a wide display face. After seeing the logo, three things changed:
-
-1. **Colors**: the red and blue were invented, not the brand's. Replaced by a monochrome palette from the logo.
-2. **Headline font**: the wide Unbounded face did not echo the logo. Replaced by a heavy condensed sans that does.
-3. **Hand-written font**: dropped. "Hand-drawn" details are drawn strokes (small SVG shapes), with no handwriting font and no extra download.
-
-Also avoided: cream with a serif display, a near-black page with one bright accent, identical rounded cards, tracked all-caps labels above headings, middle-dot meta strings, "→" on buttons, monospace data labels, numbered markers (nothing here is a sequence), and accenting a single word in a headline.
+Rejected along the way: a barber pole (visually noisy), a red and blue accent (not the brand's), Unbounded and wide display faces, a handwriting font, blank grids with no imagery.
 
 ## Principles
 
@@ -39,28 +34,39 @@ Also avoided: cream with a serif display, a near-black page with one bright acce
 
 ## Color tokens
 
-Tokens are CSS custom properties defined once in `src/app/globals.css` (Tailwind `@theme`). Light values are the base; dark values apply under `prefers-color-scheme: dark` and under `data-theme="dark"`; `data-theme="light"` forces light. Ratios are WCAG 2.1 contrast, computed 2026-11-01. Text needs 4.5, UI and large shapes need 3.0.
+The palette comes from the developer's reference (white, dark, neon yellow-green), approved from the mockup on 2026-11-01. Tokens are CSS custom properties defined once in `src/app/globals.css` (Tailwind `@theme`). Light values are the base; dark values apply under `prefers-color-scheme: dark` and under `data-theme="dark"`; `data-theme="light"` forces light. Ratios are WCAG 2.1 contrast, computed 2026-11-01. Text needs 4.5, UI and large shapes need 3.0.
 
-| Token | Light (concrete) | Dark (night) | Use |
+| Token | Light | Dark | Use |
 |---|---|---|---|
-| `--color-bg` | `#E4E4E0` | `#0D0D0D` | page ground |
-| `--color-surface` | `#F2F2EF` | `#1A1A1A` | raised areas (header, price board rows) |
-| `--color-ink` | `#000000` | `#F2F2EF` | text, rules, frame, primary button |
-| `--color-muted` | `#4D4D4D` | `#A6A6A6` | secondary text |
+| `--color-bg` | `#FEFEFE` | `#222222` | page ground |
+| `--color-surface` | `#F2F2F0` | `#2C2C2C` | raised areas (header, footer, price rows) |
+| `--color-ink` | `#222222` | `#FEFEFE` | text, rules, primary button |
+| `--color-muted` | `#5A5A5A` | `#A8A8A8` | secondary text |
+| `--color-accent` | `#EDEE1B` | `#EDEE1B` | neon yellow-green; fills only (see rules) |
+| `--color-on-accent` | `#222222` | `#222222` | text on the accent |
 
 | Pair | Light | Dark | Need |
 |---|---|---|---|
-| ink on bg | 16.47 | 17.33 | 4.5 |
-| ink on surface | 18.72 | 15.52 | 4.5 |
-| muted on bg | 6.63 | 7.98 | 4.5 |
-| muted on surface | 7.54 | 7.15 | 4.5 |
-| bg on ink (primary button text) | 16.47 | 17.33 | 4.5 |
-| ink as rule or focus ring on bg | 16.47 | 17.33 | 3.0 |
-| ink as rule or focus ring on surface | 18.72 | 15.52 | 3.0 |
+| ink on bg | 15.78 | 15.78 | 4.5 |
+| ink on surface | 14.19 | 13.85 | 4.5 |
+| muted on bg | 6.84 | 6.69 | 4.5 |
+| muted on surface | 6.15 | 5.87 | 4.5 |
+| bg on ink (primary button text) | 15.78 | 15.78 | 4.5 |
+| on-accent on accent (Book, row highlight, card strip) | 12.76 | 12.76 | 4.5 |
+| accent on bg | **1.24** | 12.76 | 3.0 for shapes |
+| accent on surface | **1.11** | 11.20 | 3.0 for shapes |
+| ink as rule or focus ring on bg | 15.78 | 15.78 | 3.0 |
+
+**Accent rules** (because the neon fails on the light ground):
+- The accent is a **fill with dark text on it**, like a highlighter: the Book button at rest, a services row on hover or tap, the Book strip on a barber card, the hover fill on the Book button. It is never text, a thin line, an icon or a focus ring on the light theme.
+- On the dark theme the accent also works as text or a line (12.76), but the same fills are used so both themes behave the same.
+- Keyboard focus is a 3 px ink outline with a neon halo (`box-shadow`), never neon alone.
+- The accent must be visible on touch devices without hover: the Book button wears it at rest, and the barber card's Book strip is always shown on devices with no hover.
+- The accent is not a brand color of the owner's logo (which is black and white) and is subject to the owner's approval.
 
 `scripts/check-contrast.mjs` (T096) re-checks these from the tokens in CI. Any change to a hex re-runs it.
 
-**The fade**: `linear-gradient(100deg, ink 0%, ink 18%, bg 100%)` (token `--gradient-fade`). One band of about 6 px between the hero and the next section; never behind text; never a page background (constitution VIII). It reads on both themes because it is built from the theme's own ink and ground.
+**The fade**: whether to keep the tonal gradient band is an open item (see below); the approved mockup has none.
 
 ## Typography
 
@@ -92,45 +98,44 @@ Families are `font-display` and `font-text`; they read the variables `next/font`
 
 ## Layout
 
-- **Grid**: 12 columns from tablet up, 4 on phones; left-aligned text throughout (never justified; centered only for short single-line states such as the not-found message).
-- **Frame and rules**: rules are 3 px ink. The frame device: a heading sits on a rule that breaks around the label, the way "est.2018" and "BARBERSHOP" break the logo's frame.
+- **Grid**: 12 columns from tablet up, 4 on phones; left-aligned text (never justified; centered only for short single-line states such as the not-found message).
+- **Header**: tiny, fixed, over the page: shop name with the Dnipro local time on the left, navigation in the middle, language and theme controls on the right. A persistent Book button (FR-003). The wordmark is not repeated in the header on the home page while the giant one is on screen.
+- **Hero**: one screen tall. The giant wordmark (the traced `logo-wordmark.svg`, drawn in the text color), a photo slot overlapping it, a two-line tagline bottom left, the Book button bottom right. The first screen always shows the name, what the shop is and Book.
+- **Beats**: each section starts with a 3 px rule, a large heading in the display face on the left and content on the right (stacked on phones). Padding is generous; nothing is boxed in cards.
+- **Services**: rows, not cards: name left, duration and price right, a thin rule between rows. Price and duration only when the owner confirmed them.
+- **Barbers**: photo-led cards, portrait ratio, name below; Book slides up on hover and on keyboard focus. English badge only when confirmed.
+- **Footer**: the full logo lockup, large.
 - **Shape**: no radius on content, buttons and inputs (0). No shadows, no glass, no blur.
-- **Home**: hero (headline in `display-xl`, one Book button, a real photo when supplied, text on a solid ground and never on the photo), the fade band, the services board, the contact block (address, hours, phone, map link).
-- **Services board**: rows, not cards: name on the left, duration and price on the right, a rule between rows. Price and duration appear only when the owner confirmed them.
-- **Barbers**: photo-led, unequal sizes on the grid; name in `display-m`, an English badge only when confirmed. A barber with a page links to it; one without shows only the card.
-- **Mobile**: the sticky bottom bar (Book primary, Call secondary) reserves its own padding so it never covers content. Book is the largest touch target on every page.
+- **Mobile**: the wordmark fills the width; the photo slot sits below it, overlapping its lower edge; the sticky bottom bar (Book primary, Call secondary) reserves its own padding. Book is the largest touch target on every page.
 
 ```text
-Phone, home                           Tablet and up, home
-┌──────────────────────┐              ┌────────────────────────────────────────────┐
-│ CUTLER   [uk|en] [◐] │              │ CUTLER        Barbers   [uk|en]  [theme]    │
-├──────────────────────┤              ├────────────────────────────────────────────┤
-│ HEADLINE in heavy    │              │ HEADLINE in heavy condensed   real photo    │
-│ condensed type       │              │ (two lines)                  (when supplied) │
-│                      │              │ [ Book ]                                    │
-│ [   Book   ]         │              ├━━━━━━━━━━ the fade band ━━━━━━━━━━━━━━━━━━━━┤
-├━━ the fade band ━━━━━┤              │ ──[ Services ]─────────────────────────────  │
-│ ─[ Services ]──────  │              │ rows: name ............ duration  price     │
-│ rows                 │              │ ──[ Contact ]──────────────────────────────  │
-│ ─[ Contact ]───────  │              │ address, hours, phone, map                   │
-├──────────────────────┤              └────────────────────────────────────────────┘
-│ [ Book ]   [ Call ]  │  (sticky)
-└──────────────────────┘
+Desktop hero                                   Phone hero
+┌──────────────────────────────────────────┐  ┌────────────────────┐
+│ CUTLER 19:38 Дніпро   Послуги   UA/EN ◐  │  │ CUTLER 19:38    ◐  │
+│                                          │  │                    │
+│ ██ CUTLER (giant, full width) ███████    │  │ ██ CUTLER ████████ │
+│ ██ ███ ██ ██ ┌────────┐ ███ ██           │  │      ┌──────────┐  │
+│              │ photo  │                   │  │      │  photo   │  │
+│ Барбершоп    │ slot   │      [ Записатися]│  │      └──────────┘  │
+│ у Дніпрі     └────────┘                   │  │ Барбершоп у Дніпрі │
+└──────────────────────────────────────────┘  │ [   Записатися   ] │
+                                              └────────────────────┘
 ```
 
 ## Hand-drawn details
 
-- A small number only: at most two or three per page, always `aria-hidden` and never carrying information.
-- Drawn strokes only: a loose arrow, circle or underline as inline SVG paths, near the Book button or a photo. No handwriting font, no text in the drawing.
-- Strokes use `--color-ink`, so they follow the theme.
+Not part of the approved direction (the mockup has none). Decision pending: drop them, or keep one or two small drawn strokes if the owner wants them. If kept: inline SVG only, `aria-hidden`, drawn in the text color, never carrying information, no handwriting font.
 
 ## Motion
 
-- **One orchestrated moment**: on first load the hero headline reveals line by line (a short fade and shift, under 600 ms, on opacity and transform only), and a drawn stroke draws once. Nothing else animates on its own.
-- **Responses to the visitor** (hover, focus, press, opening a menu or the widget) are 120 to 180 ms position or color changes.
-- **`prefers-reduced-motion: reduce`**: no reveal, no stroke drawing; transitions drop to none. Content is never hidden waiting for an animation.
+- **Scroll, on transform and opacity**: the photo slot rises about 60 px over the wordmark as the visitor leaves the hero; beat headings and content fade and rise 28 px once when they enter the screen.
+- **Load**: the wordmark rises into place (about 1.1 s), then the header fades in and the tagline and Book button rise.
+- **Scroll**: the wordmark drifts sideways as the hero scrolls away; each beat's top rule draws in from the left.
+- **Hover, tap and focus**: a services row fills with the accent; "Book" slides up on a barber card (always shown without hover); the barber photo lifts 6 px; the Book button fills from the left. The button does not move or follow the cursor (a "magnetic" effect was tried and removed: it jumped). Keyboard focus shows the same states.
+- **Time**: the Dnipro local time updates quietly; no animation.
+- **`prefers-reduced-motion: reduce`**: no scroll movement, no reveal, no sweeps; every state is visible without waiting for an animation.
 - **Theme change** is instant so there is no flash.
-- CSS and native browser features first; no animation library (plan, research D15).
+- CSS and a small amount of vanilla JavaScript (an `IntersectionObserver` and one passive scroll listener); no animation library (plan, research D15).
 
 ## Photography
 
@@ -162,12 +167,15 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Decisions log
 
+- 2026-11-01: palette changed from concrete grey to white, `#222222` and the neon `#EDEE1B` (the developer's reference), with the accent as fills only. Magnetic Book button removed. Animations approved.
+- 2026-11-01: direction "the sign, up close" approved from the mockup in `docs/design-reference/`. Replaces the interrupted-frame, fade-band and drawn-arrow home page of v2. Colors, typography and the quality floor are unchanged.
 - 2026-11-01: v1 proposed a red and blue accent and Unbounded; superseded by v2 after the logo arrived. The existing EasyWeek booking page is not a design input.
 - 2026-11-01: headlines in Roboto Condensed (Cyrillic verified), text in Onest, no handwriting font, monochrome palette, tonal fade gradient.
 
 ## Open items
 
+0. Whether to keep the "fade" gradient band and any hand-drawn stroke (constitution VIII calls for one signature gradient used sparingly; the approved mockup has neither). Constitution VIII and `CLAUDE.md` also describe a "light concrete/paper base"; the approved palette is white, so they need a small amendment. Decide with the developer before building the home page.
 1. The original vector logo, to replace the interim traced files (not blocking; the site already uses the official logo).
-2. Confirm with the owner that the brand is strictly black and white (and that no accent color is wanted).
+2. Owner approval of the neon accent and of the whiter palette (the logo itself stays black and white).
 3. Photography for the hero and the barbers, and the consent for client photos.
 4. Owner review of this direction.

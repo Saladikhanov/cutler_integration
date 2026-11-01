@@ -48,10 +48,12 @@ EasyWeek research and widget findings: `specs/001-cutler-website-mvp/research-ea
 - Do not use the CUTLER name, screenshots or analytics in a public portfolio without owner permission.
 
 ## Design
-- Direction: contemporary urban barbershop; high-contrast editorial layout with restrained brutalist influence;
-  light concrete/paper base, strong dark type, deliberate grid, selective hand-drawn annotations; one signature
-  gradient accent used sparingly. Booking CTAs and service clarity beat decoration. Mobile-first, respect
-  `prefers-reduced-motion`. Real CUTLER photography only.
+- Direction ("the sign, up close", `docs/design.md`, reference `docs/design-reference/sign-up-close.html`):
+  contemporary urban barbershop; a giant logo wordmark across the hero, tiny quiet interface, scale contrast,
+  deliberate grid; white and `#222222` grounds with strong type and one neon accent (`#EDEE1B`) used only as a
+  fill with dark text (never a line or text on the light theme). Booking CTAs and service clarity beat
+  decoration. Mobile-first: no state may depend on hover alone. Respect `prefers-reduced-motion`. Real CUTLER
+  photography only.
 - Use the `frontend-design` skill for UI work, and plan the UI before building it.
 - After building or changing UI, audit it with `web-design-guidelines` (a11y/UX) and
   `vercel-react-best-practices` (React/Next.js performance).
