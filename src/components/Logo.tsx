@@ -8,8 +8,8 @@ type LogoProps = {
 };
 
 const files = {
-  full: { src: "/brand/logo.svg", ratio: "2231 / 863" },
-  wordmark: { src: "/brand/logo-wordmark.svg", ratio: "1896 / 493" },
+  full: { src: "/brand/logo.svg", ratio: "3859 / 1487" },
+  wordmark: { src: "/brand/logo-wordmark.svg", ratio: "3276 / 845" },
 } as const;
 
 /**
