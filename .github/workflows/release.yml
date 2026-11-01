@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Version, changelog and tag from commits
+    runs-on: ubuntu-latest
+    steps:
+      # Semantic Versioning 2.0.0 from Conventional Commits. 0.x until launch, 1.0.0 at launch.
+      - uses: googleapis/release-please-action@v5
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
