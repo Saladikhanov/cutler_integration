@@ -121,7 +121,7 @@ Each decision lists what was chosen, why, and what else was considered. Anything
 
 ## D15. Animation (decided 2026-11-01)
 
-- **Decision**: no animation library at the start. Use CSS transitions, inline SVG stroke animation for the hand-drawn annotations, native scroll-driven animations and the View Transitions API as progressive enhancements, with `prefers-reduced-motion` honored.
+- **Decision**: no animation library at the start. Use CSS transitions, a small `IntersectionObserver` and one passive scroll listener for the scroll beats (transform and opacity only), native scroll-driven animations and the View Transitions API as progressive enhancements, with `prefers-reduced-motion` honored.
 - **Rationale**: client animation libraries start elements invisible, which hurts first paint and the no-JavaScript requirement (FR-027, SC-010) and adds to the JavaScript budget.
 - **Adopt Motion only for** a specific need (for example the barbers filter reordering or a shared card-to-page transition), through `LazyMotion` with the small `m` component, never above the fold, always honoring reduced motion. The package is now published as `motion`; verify at install.
 

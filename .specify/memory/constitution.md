@@ -78,11 +78,14 @@ prominent on every page. Images MUST NOT cause layout shift.
 ### VIII. Intentional Design System
 Design tokens (color, type, spacing, shape) are defined once as CSS custom properties, for both themes,
 and documented in `docs/design.md`; pages and components use tokens, not ad-hoc values. Direction:
-contemporary urban barbershop, a clean high-contrast editorial layout with restrained brutalist
-influence, a deliberate grid, selective hand-drawn annotations, and one signature gradient accent used
-sparingly (never as a full-page background) that MUST work in both themes. The design has a light theme
-(a light concrete/paper base with strong dark typography) and a matching dark theme, and both MUST meet
-WCAG 2.1 AA contrast. The site follows the visitor's device setting by default and offers a manual
+contemporary urban barbershop, a giant logo wordmark across the hero with strong scale contrast between
+very large and very small type, and a deliberate grid. The design has a light theme (a white base with
+strong dark typography) and a matching dark theme (a dark `#222222` base with white typography), and both
+MUST meet WCAG 2.1 AA contrast. One neon accent color is used only as a fill with dark text on it. It MUST
+NOT be used as text, as a thin line or as a focus ring on the light theme, where it fails contrast, and
+MUST NOT be a full-page background; keyboard focus stays a dark outline. No interaction state may depend
+on hover alone: booking controls and the accent MUST be visible and usable on touch devices without
+hover. The site follows the visitor's device setting by default and offers a manual
 toggle whose choice is remembered only on the visitor's device. The theme MUST be applied before first
 paint (no flash of the wrong theme) and MUST follow the device setting when scripts are off or storage is
 unavailable. Service clarity and booking CTAs outrank decoration.
@@ -139,4 +142,4 @@ redefining a principle, MINOR for adding a principle or materially expanding gui
 clarifications. Every plan and review verifies compliance, and any deviation MUST be justified in the
 plan's complexity section. `CLAUDE.md` provides runtime guidance and MUST stay consistent with this file.
 
-**Version**: 1.4.0 | **Ratified**: 2026-11-01 | **Last Amended**: 2026-11-01
+**Version**: 1.5.0 | **Ratified**: 2026-11-01 | **Last Amended**: 2026-11-01

@@ -66,7 +66,7 @@ The palette comes from the developer's reference (white, dark, neon yellow-green
 
 `scripts/check-contrast.mjs` (T096) re-checks these from the tokens in CI. Any change to a hex re-runs it.
 
-**The fade**: whether to keep the tonal gradient band is an open item (see below); the approved mockup has none.
+**No gradient**: the earlier tonal fade band is dropped; the neon accent is the one accent (constitution v1.5.0).
 
 ## Typography
 
@@ -124,7 +124,7 @@ Desktop hero                                   Phone hero
 
 ## Hand-drawn details
 
-Not part of the approved direction (the mockup has none). Decision pending: drop them, or keep one or two small drawn strokes if the owner wants them. If kept: inline SVG only, `aria-hidden`, drawn in the text color, never carrying information, no handwriting font.
+Dropped (decided 2026-11-01). The approved direction has no drawn strokes and no handwriting font.
 
 ## Motion
 
@@ -174,7 +174,7 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Open items
 
-0. Whether to keep the "fade" gradient band and any hand-drawn stroke (constitution VIII calls for one signature gradient used sparingly; the approved mockup has neither). Constitution VIII and `CLAUDE.md` also describe a "light concrete/paper base"; the approved palette is white, so they need a small amendment. Decide with the developer before building the home page.
+0. (Resolved 2026-11-01) The fade gradient band and the hand-drawn strokes are dropped; constitution v1.5.0 now describes the white and `#222222` grounds with the neon accent.
 1. The original vector logo, to replace the interim traced files (not blocking; the site already uses the official logo).
 2. Owner approval of the neon accent and of the whiter palette (the logo itself stays black and white).
 3. Photography for the hero and the barbers, and the consent for client photos.
