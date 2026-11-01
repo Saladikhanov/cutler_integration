@@ -129,10 +129,10 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 
 **Independent Test**: from each page switch both ways and confirm the equivalent page opens in the chosen language; unknown paths show a localized 404.
 
-- [ ] T057 [P] [US2] Write e2e tests in `tests/e2e/us2-language.spec.ts`: the root is Ukrainian; `/en` is English; the switcher opens the equivalent path both ways (home, barbers, barber page); a page with no equivalent opens the other language's home; an unknown path shows a not-found page in its own language; browser language is not auto-detected
-- [ ] T058 [US2] Create `src/components/LanguageSwitcher.tsx` (links built with `src/lib/seo/equivalent-path.ts`, `hreflang` and `lang` attributes on the links, accessible name) and place it in `src/components/Header.tsx`
-- [ ] T059 [US2] Create `src/app/[locale]/not-found.tsx` with a localized message, a way home and a booking button; ensure unknown paths under `/en` render it in English
-- [ ] T060 [US2] Audit that no visitor-facing string is hardcoded in components (all through next-intl or the CMS), and add an ESLint rule or a unit test in `tests/unit/no-hardcoded-strings.test.ts` that fails on literal visible text in `src/components` and `src/app` (allowing identifiers and attributes)
+- [X] T057 [P] [US2] Write e2e tests in `tests/e2e/us2-language.spec.ts`: the root is Ukrainian; `/en` is English; the switcher opens the equivalent path both ways (home, barbers, barber page); a page with no equivalent opens the other language's home; an unknown path shows a not-found page in its own language; browser language is not auto-detected (done for the home page, unknown paths and the footer; the switch from the barbers list and a barber page is covered in T066 once those pages exist)
+- [X] T058 [US2] Create `src/components/LanguageSwitcher.tsx` (links built with `src/lib/seo/equivalent-path.ts`, `hreflang` and `lang` attributes on the links, accessible name) and place it in `src/components/Header.tsx`
+- [X] T059 [US2] Create `src/app/[locale]/not-found.tsx` with a localized message, a way home and a booking button; ensure unknown paths under `/en` render it in English
+- [X] T060 [US2] Audit that no visitor-facing string is hardcoded in components (all through next-intl or the CMS), and add an ESLint rule or a unit test in `tests/unit/no-hardcoded-strings.test.ts` that fails on literal visible text in `src/components` and `src/app` (allowing identifiers and attributes)
 
 **Checkpoint**: US1 and US2 together form the launch-ready MVP.
 

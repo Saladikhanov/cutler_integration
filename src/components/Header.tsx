@@ -1,11 +1,12 @@
 import { BookingButton } from "@/components/BookingButton";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Link } from "@/i18n/navigation";
 
 /**
  * Site header, fixed to the top with a solid ground so it never overlaps the content: the wordmark (a
- * link home), then the theme toggle and the Book button, on every page (FR-003).
+ * link home), then the language link, the theme toggle and the Book button, on every page (FR-003).
  */
 export function Header() {
   return (
@@ -15,6 +16,8 @@ export function Header() {
           <Logo variant="wordmark" className="w-full" />
         </Link>
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Below 360 px there is no room; the footer always has the language links. */}
+          <LanguageSwitcher variant="other" className="hidden min-[360px]:block" />
           <ThemeToggle />
           <BookingButton />
         </div>

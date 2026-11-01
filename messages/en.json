@@ -12,7 +12,11 @@
   "LanguageSwitcher": {
     "label": "Language",
     "uk": "Українська",
-    "en": "English"
+    "en": "English",
+    "code": {
+      "uk": "UA",
+      "en": "EN"
+    }
   },
   "Footer": {
     "cookieSettings": "Cookie settings"
