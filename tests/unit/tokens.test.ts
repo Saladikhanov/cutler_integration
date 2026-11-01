@@ -61,6 +61,14 @@ describe("no ad hoc typography or color in components", () => {
     }
   });
 
+  it("uses no default palette colors (only the design tokens)", () => {
+    const palette =
+      /\b(?:bg|text|border|fill|stroke|from|to|via|outline|ring|divide|decoration)-(?:white|black|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3})\b/;
+    for (const file of sources) {
+      expect(readFileSync(file, "utf8"), file).not.toMatch(palette);
+    }
+  });
+
   it("uses no dark: variants (the tokens carry both themes)", () => {
     for (const file of sources) {
       expect(readFileSync(file, "utf8"), file).not.toMatch(/\bdark:/);

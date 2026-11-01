@@ -28,5 +28,8 @@
   },
   "Home": {
     "comingSoon": "Сайт скоро запрацює"
+  },
+  "ThemeToggle": {
+    "label": "Темна тема"
   }
 }

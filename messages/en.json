@@ -28,5 +28,8 @@
   },
   "Home": {
     "comingSoon": "The website is coming soon"
+  },
+  "ThemeToggle": {
+    "label": "Dark theme"
   }
 }
