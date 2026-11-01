@@ -73,7 +73,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
         </a>
         <NextIntlClientProvider>
           <BookingProvider branchId={shop?.easyweekBranchId} fallbackUrl={shop?.bookingFallbackUrl}>
-            <Header openingHours={shop?.openingHours} />
+            <Header />
             {children}
             <Footer />
           </BookingProvider>

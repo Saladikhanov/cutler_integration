@@ -33,9 +33,5 @@
   },
   "ThemeToggle": {
     "label": "Темна тема"
-  },
-  "Header": {
-    "today": "Сьогодні {hours}",
-    "closedToday": "Сьогодні зачинено"
   }
 }

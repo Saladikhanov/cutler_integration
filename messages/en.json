@@ -33,9 +33,5 @@
   },
   "ThemeToggle": {
     "label": "Dark theme"
-  },
-  "Header": {
-    "today": "Today {hours}",
-    "closedToday": "Closed today"
   }
 }

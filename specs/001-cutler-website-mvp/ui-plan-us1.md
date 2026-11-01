@@ -25,7 +25,7 @@ Out (later stories, same patterns): services rows (US3), barber cards (US4), con
 
 **Header** (server, with small client islands)
 - Fixed. A solid ground (page color) so it never overlaps content as it did in the mockup. Shop name and the Dnipro local time on the left, navigation in the middle (empty until pages exist), theme toggle and, later, the language switcher on the right, and a persistent Book button (FR-003).
-- **Local time**: a small client component that renders after hydration (no server and client mismatch), using `Intl.DateTimeFormat` with the `Europe/Kyiv` zone. It shows only the time, never opening hours.
+- **No hours in the header** (decided 2026-11-01): opening hours appear only in the contact section (US5), using `src/lib/hours.ts`.
 
 **Hero** (server)
 - One screen tall. The wordmark across the full width as an inline or masked graphic with a real `<h1>` ("Барбершоп у Дніпрі") that is visible text, not the logo. Tagline bottom left, Book button bottom right.

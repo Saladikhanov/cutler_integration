@@ -17,7 +17,7 @@ The logo is a shop sign. The site shows it close up: one giant wordmark across t
 - **Scale contrast**: two sizes only, huge and tiny. The CUTLER wordmark spans the full width; labels, the tagline and the interface are small.
 - **Depth without 3D**: a real photo overlaps the wordmark, so some letters sit behind it. Until real photos exist, the slot is a clearly labeled placeholder.
 - **Starker ground**: white with near-black type; in the dark theme `#222222` with white type. One neon yellow-green accent, used as a highlighter fill with dark text (see Color tokens). The energy comes from scale, photography, motion and the neon.
-- **Small live details**: the Dnipro local time in the header. Nothing about opening hours until the owner confirms them.
+- **Small live details**: none in the header; opening hours appear in the contact section.
 - **Scroll beats**: short blocks that meet the visitor one at a time (what we do, services, barbers), each under a heavy rule.
 - **Precise hover**: a services row lights up in the accent; "Book" slides up from the bottom of a barber photo, and is always visible where there is no hover (phones).
 - **Inspiration, not a rule**: the restraint and the scale of monolithstudio.com. No 3D object, no video, no animation library.
@@ -99,7 +99,7 @@ Families are `font-display` and `font-text`; they read the variables `next/font`
 ## Layout
 
 - **Grid**: 12 columns from tablet up, 4 on phones; left-aligned text (never justified; centered only for short single-line states such as the not-found message).
-- **Header**: tiny, fixed, over the page: shop name with the Dnipro local time on the left, navigation in the middle, language and theme controls on the right. A persistent Book button (FR-003). The wordmark is not repeated in the header on the home page while the giant one is on screen.
+- **Header**: fixed, with a solid ground: the small wordmark (a link home, on every page, including the home page where the giant one is on screen) on the left; the theme toggle (and later the language switcher) and a persistent Book button on the right (FR-003). No opening hours or open/closed notice in the header: hours live in the contact section.
 - **Hero**: one screen tall. The giant wordmark (the traced `logo-wordmark.svg`, drawn in the text color), a photo slot overlapping it, a two-line tagline bottom left, the Book button bottom right. The first screen always shows the name, what the shop is and Book.
 - **Beats**: each section starts with a 3 px rule, a large heading in the display face on the left and content on the right (stacked on phones). Padding is generous; nothing is boxed in cards.
 - **Services**: rows, not cards: name left, duration and price right, a thin rule between rows. Price and duration only when the owner confirmed them.
@@ -167,6 +167,7 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Decisions log
 
+- 2026-11-01: today's hours and the closed notice removed from the header (little benefit, and "closed" at the top of every page sits next to the Book button); hours appear only in the contact section (US5).
 - 2026-11-01: corner radii changed from 0 to 10 px (controls) and 16 px (cards, photos) to match the EasyWeek widget, whose own corners cannot be restyled. EasyWeek's Branding settings use the same neon, white and `#222222` palette.
 - 2026-11-01: `scrollbar-gutter: stable` on the page, because the widget locks page scrolling when it opens and the disappearing scrollbar moved the header by 15 px.
 - 2026-11-01: palette changed from concrete grey to white, `#222222` and the neon `#EDEE1B` (the developer's reference), with the accent as fills only. Magnetic Book button removed. Animations approved.
