@@ -112,7 +112,7 @@ Each decision lists what was chosen, why, and what else was considered. Anything
 
 ## D14. Node version, commits and versioning (decided 2026-11-01)
 
-- **Node**: latest LTS, currently 24.x, which Vercel uses by default and lists as available alongside 22.x and 20.x. Pinned with `engines.node` and `.nvmrc`; verify the exact version at install.
+- **Node**: latest LTS supported by the host. Checked 2026-11-01: Node 26 is an LTS release and Vercel lists 26.x as the default, with 24.x and 22.x also available, so the project uses Node 26 (an earlier draft said 24 from an older Vercel page). Pinned with `engines.node` and `.nvmrc`; verify the exact version at install.
 - **Commits**: [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/), checked by `commitlint` in CI on pull requests (a local hook only if wanted).
 - **Versioning**: [SemVer 2.0.0](https://semver.org/) as release tags; `0.x` until launch, `1.0.0` at launch. After launch: MINOR for a new page or feature, PATCH for a fix or a copy or content-structure-neutral change, MAJOR for a breaking change such as changed URLs or content model. `release-please` generates the changelog and tags from the commits.
 

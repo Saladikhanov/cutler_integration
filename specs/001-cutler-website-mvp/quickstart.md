@@ -6,7 +6,7 @@ This is a run-and-validate guide. The app does not exist yet; commands below are
 
 ## Prerequisites
 
-- Node.js 24 LTS and npm.
+- Node.js 26 LTS and npm.
 - A Sanity project owned by the business owner, a public dataset, the Studio deployed, and at least: Shop Details (with the Dnipro branch id), a few services, and one barber with a description and an example of work (both languages).
 - `.env.local` filled from `.env.example` (names listed in the plan). Never commit it.
 - A GA4 measurement id (a test property is fine for validation).

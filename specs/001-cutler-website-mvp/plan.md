@@ -10,7 +10,7 @@ A bilingual (Ukrainian at `/`, English at `/en`), SEO-first marketing site for C
 
 ## Technical Context
 
-**Language/Version**: TypeScript (strict) on Node.js 24 LTS (Vercel's default; the local machine, now on 22.19, is upgraded; pinned with `engines.node` and `.nvmrc`); Next.js 16.x (App Router), React 19. Pin exact versions at install.
+**Language/Version**: TypeScript (strict) on Node.js 26 LTS (Vercel's default; the local machine was on 22.19 and is upgraded; pinned with `engines.node` and `.nvmrc`); Next.js 16.x (App Router), React 19. Pin exact versions at install.
 
 **Primary Dependencies**: `next`, `react`, `next-intl`, `tailwindcss` (v4), `next-sanity` with `@sanity/image-url`, `@next/third-parties` (GA4). Studio: `sanity` (in `studio/`). Dev: `vitest`, `@playwright/test`, `@axe-core/playwright`, `eslint`, `prettier`, `@lhci/cli`, `@commitlint/cli` with `@commitlint/config-conventional`. No component library (no shadcn at the start; a single component may be added only with a need stated here) and no animation library at the start (CSS and native browser features first; Motion only for a specific need, via `LazyMotion`, never above the fold).
 
