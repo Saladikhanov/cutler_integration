@@ -49,6 +49,13 @@ describe("design tokens", () => {
   });
 });
 
+describe("shape tokens", () => {
+  it("defines the control and card radii, matched to the booking widget", () => {
+    expect(css).toMatch(/--radius-control:\s*10px/);
+    expect(css).toMatch(/--radius-card:\s*16px/);
+  });
+});
+
 describe("no ad hoc typography or color in components", () => {
   const files = (dir: string): string[] =>
     readdirSync(dir).flatMap((name) => {

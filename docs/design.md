@@ -105,7 +105,7 @@ Families are `font-display` and `font-text`; they read the variables `next/font`
 - **Services**: rows, not cards: name left, duration and price right, a thin rule between rows. Price and duration only when the owner confirmed them.
 - **Barbers**: photo-led cards, portrait ratio, name below; Book slides up on hover and on keyboard focus. English badge only when confirmed.
 - **Footer**: the full logo lockup, large.
-- **Shape**: no radius on content, buttons and inputs (0). No shadows, no glass, no blur.
+- **Shape**: corner radii match the EasyWeek booking widget so the booking window does not look foreign: 10 px for controls (buttons, the theme toggle, inputs) and 16 px for cards and photos (tokens `--radius-control` and `--radius-card`, measured from the widget on 2026-11-01: service cards 16 px, small controls 10 px, bottom sheet 15 px). Rules and section dividers stay sharp lines. No shadows, no glass, no blur.
 - **Mobile**: the wordmark fills the width; the photo slot sits below it, overlapping its lower edge; the sticky bottom bar (Book primary, Call secondary) reserves its own padding. Book is the largest touch target on every page.
 
 ```text
@@ -167,6 +167,8 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Decisions log
 
+- 2026-11-01: corner radii changed from 0 to 10 px (controls) and 16 px (cards, photos) to match the EasyWeek widget, whose own corners cannot be restyled. EasyWeek's Branding settings use the same neon, white and `#222222` palette.
+- 2026-11-01: `scrollbar-gutter: stable` on the page, because the widget locks page scrolling when it opens and the disappearing scrollbar moved the header by 15 px.
 - 2026-11-01: palette changed from concrete grey to white, `#222222` and the neon `#EDEE1B` (the developer's reference), with the accent as fills only. Magnetic Book button removed. Animations approved.
 - 2026-11-01: direction "the sign, up close" approved from the mockup in `docs/design-reference/`. Replaces the interrupted-frame, fade-band and drawn-arrow home page of v2. Colors, typography and the quality floor are unchanged.
 - 2026-11-01: v1 proposed a red and blue accent and Unbounded; superseded by v2 after the logo arrived. The existing EasyWeek booking page is not a design input.

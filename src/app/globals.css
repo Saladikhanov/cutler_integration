@@ -55,6 +55,10 @@
 }
 
 @theme {
+  /* Corner radii, matched to the EasyWeek booking widget (cards 16px, small controls 10px) for consistency. */
+  --radius-control: 10px;
+  --radius-card: 16px;
+
   /* Font families. The --font-* variables on the right are set by next/font in the root layout. */
   --font-display: var(--font-roboto-condensed, system-ui), system-ui, sans-serif;
   --font-text: var(--font-onest, system-ui), system-ui, sans-serif;
@@ -92,6 +96,14 @@
 }
 
 @layer base {
+  /*
+    Keep the scrollbar's space reserved, so the page does not jump sideways when something (the booking
+    widget) locks scrolling and the scrollbar disappears.
+  */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     background-color: var(--bg);
     color: var(--ink);
