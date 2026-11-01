@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { routing, type Locale } from "@/i18n/routing";
@@ -13,10 +12,12 @@ type Props = {
 };
 
 const item =
-  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-control border-3 border-ink px-2 text-ui";
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-control px-2 text-ui";
 
 /**
- * Links to the same page in the other language (FR-009); a path with no equivalent opens the other
+ * Plain links, not client-side ones, on purpose: changing language swaps the whole `<html>` element, and only
+ * a full page load re-runs the pre-paint theme script, so the saved theme survives (and the booking widget is
+ * re-created in the new language). Links to the same page in the other language (FR-009); a path with no equivalent opens the other
  * language's home page. The links carry `hreflang` and `lang`, and the current language is marked with
  * `aria-current` instead of linking to itself.
  */
@@ -36,16 +37,15 @@ export function LanguageSwitcher({ variant, className }: Props) {
                 {t(`code.${l}`)}
               </span>
             ) : (
-              <Link
+              <a
                 href={getEquivalentPath(pathname, l)}
                 hrefLang={l}
                 lang={l}
                 aria-label={t(l)}
-                prefetch={false}
-                className={`${item} transition-colors duration-150 hover:bg-ink hover:text-bg active:bg-ink active:text-bg motion-reduce:transition-none`}
+                className={`${item} bg-surface transition-colors duration-150 hover:bg-ink hover:text-bg active:bg-ink active:text-bg motion-reduce:transition-none`}
               >
                 {t(`code.${l}`)}
-              </Link>
+              </a>
             )}
           </li>
         ))}
