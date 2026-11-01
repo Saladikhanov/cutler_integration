@@ -1,10 +1,27 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
+import { Onest, Roboto_Condensed } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+// Fonts are self-hosted by next/font (options must be literals). The subsets cover Ukrainian (cyrillic)
+// and the hryvnia sign (cyrillic-ext); the browser only downloads a subset file when its characters appear.
+const robotoCondensed = Roboto_Condensed({
+  subsets: ["cyrillic", "cyrillic-ext", "latin"],
+  weight: ["700", "800", "900"],
+  variable: "--font-roboto-condensed",
+  display: "swap",
+});
+
+const onest = Onest({
+  subsets: ["cyrillic", "cyrillic-ext", "latin"],
+  weight: ["400", "600"],
+  variable: "--font-onest",
+  display: "swap",
+});
 
 // Placeholder metadata; localized title, description and sharing data come with the SEO tasks (T081).
 export const metadata: Metadata = {
@@ -21,7 +38,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
   const t = await getTranslations("Common");
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${robotoCondensed.variable} ${onest.variable}`}>
       <body>
         <a
           href="#main"

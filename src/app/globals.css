@@ -4,7 +4,8 @@
   Design tokens, defined once (docs/design.md, constitution VIII).
   Components use these tokens through Tailwind utilities (bg-bg, text-ink, text-display-xl, ...)
   and never set colors, font sizes, line heights or weights ad hoc.
-  Colors are provisional until the owner's logo arrives; re-run scripts/check-contrast.mjs after any change.
+  The brand is black and white (the owner's logo); there are no brand accent colors.
+  Re-run scripts/check-contrast.mjs after any change.
 */
 
 /* Raw colors per theme. Light is the base; dark follows the device, or data-theme="dark". */
@@ -12,32 +13,26 @@
   color-scheme: light;
   --bg: #e4e4e0;
   --surface: #f2f2ef;
-  --ink: #0f1b2d;
-  --muted: #4a5566;
-  --red: #c8261d;
-  --blue: #1f43e0;
+  --ink: #000000;
+  --muted: #4d4d4d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0e131c;
-    --surface: #17202f;
-    --ink: #edede8;
-    --muted: #a9b2c1;
-    --red: #ff5b50;
-    --blue: #8196ff;
+    --bg: #0d0d0d;
+    --surface: #1a1a1a;
+    --ink: #f2f2ef;
+    --muted: #a6a6a6;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0e131c;
-  --surface: #17202f;
-  --ink: #edede8;
-  --muted: #a9b2c1;
-  --red: #ff5b50;
-  --blue: #8196ff;
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --ink: #f2f2ef;
+  --muted: #a6a6a6;
 }
 
 /*
@@ -49,31 +44,28 @@
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-red: var(--red);
-  --color-blue: var(--blue);
 }
 
 @theme {
-  /* Font families. The --font-* variables on the right are set by next/font in the root layout (T023). */
-  --font-display: var(--font-unbounded, system-ui), system-ui, sans-serif;
+  /* Font families. The --font-* variables on the right are set by next/font in the root layout. */
+  --font-display: var(--font-roboto-condensed, system-ui), system-ui, sans-serif;
   --font-text: var(--font-onest, system-ui), system-ui, sans-serif;
-  --font-hand: var(--font-caveat, cursive), cursive;
 
   /* Type scale. Each step carries size, line height, letter spacing and weight together. */
-  --text-display-xl: clamp(2.5rem, 9vw, 6rem);
-  --text-display-xl--line-height: 1.05;
-  --text-display-xl--letter-spacing: -0.015em;
-  --text-display-xl--font-weight: 800;
+  --text-display-xl: clamp(2.75rem, 10vw, 6.5rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.005em;
+  --text-display-xl--font-weight: 900;
 
-  --text-display-l: clamp(2rem, 6vw, 3.5rem);
-  --text-display-l--line-height: 1.1;
-  --text-display-l--letter-spacing: -0.01em;
+  --text-display-l: clamp(2.25rem, 7vw, 4rem);
+  --text-display-l--line-height: 1.05;
+  --text-display-l--letter-spacing: -0.005em;
   --text-display-l--font-weight: 800;
 
-  --text-display-m: 1.5rem;
-  --text-display-m--line-height: 1.2;
-  --text-display-m--letter-spacing: -0.005em;
-  --text-display-m--font-weight: 600;
+  --text-display-m: 1.75rem;
+  --text-display-m--line-height: 1.15;
+  --text-display-m--letter-spacing: 0;
+  --text-display-m--font-weight: 700;
 
   --text-body: 1.0625rem;
   --text-body--line-height: 1.55;
@@ -90,13 +82,11 @@
   --text-small--letter-spacing: 0.005em;
   --text-small--font-weight: 400;
 
-  --text-annotation: 1.75rem;
-  --text-annotation--line-height: 1.1;
-  --text-annotation--letter-spacing: 0;
-  --text-annotation--font-weight: 600;
-
-  /* The one signature gradient (the fade). One thin band; never behind text or as a page background. */
-  --gradient-fade: linear-gradient(100deg, var(--red), var(--blue));
+  /*
+    The one signature gradient, "the fade": solid ink that fades into the ground, like a skin fade.
+    One thin band; never behind text and never a page background.
+  */
+  --gradient-fade: linear-gradient(100deg, var(--ink) 0%, var(--ink) 18%, var(--bg) 100%);
 }
 
 @layer base {

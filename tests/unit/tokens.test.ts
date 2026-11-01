@@ -25,7 +25,7 @@ describe("design tokens", () => {
     const darkMedia =
       css.match(/prefers-color-scheme: dark\) \{\s*:root:not\([^)]*\) \{([^}]*)\}/)?.[1] ?? "";
     const darkAttr = css.match(/:root\[data-theme="dark"\] \{([^}]*)\}/)?.[1] ?? "";
-    expect(names(light)).toEqual(["--bg", "--blue", "--ink", "--muted", "--red", "--surface"]);
+    expect(names(light)).toEqual(["--bg", "--ink", "--muted", "--surface"]);
     expect(names(darkMedia)).toEqual(names(light));
     expect(names(darkAttr)).toEqual(names(light));
   });
