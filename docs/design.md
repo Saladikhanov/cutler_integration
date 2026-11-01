@@ -8,7 +8,7 @@
 
 - **Logo** (received 2026-11-01): black on white. A heavy sans wordmark "CUTLER", "est.2018" above and "BARBERSHOP" letter-spaced below, inside a rectangular frame that the two small texts interrupt.
 - **Brand colors**: none. The identity is black and white.
-- Still needed: an original vector logo with a transparent background and a white version for the dark theme (the supplied file is a PNG wrapped in an SVG with an opaque white background), photography, and photo rules.
+- Still wanted (not blocking): the original vector logo, to replace the traced one; photography, and photo rules.
 
 ## Concept: "Concrete, ink and a frame"
 
@@ -141,8 +141,13 @@ Phone, home                           Tablet and up, home
 
 ## Logo use
 
-- The logo is shown as a vector (SVG paths) once the owner supplies it: dark in the light theme, the white version in the dark theme. Never stretched, never recolored, with clear space around it of at least the height of the "C".
-- Until then the header shows the word CUTLER set in `display-m`, not the supplied raster file (it has a white box and does not scale).
+The logo is the owner's official logo and is used on the site.
+
+- **Source and derived files**: the owner supplied a raster file (a PNG with an opaque white background, wrapped in an SVG). It is kept unchanged in `docs/brand/logo-source.png`. The site uses two vector files traced from it: `public/brand/logo.svg` (the full framed lockup) and `public/brand/logo-wordmark.svg` (the CUTLER letters only). They match the original to within hairline edge pixels (about 1.9% of the ink area). See `docs/brand/README.md`.
+- **One file, both themes**: the vectors are a single black shape. `src/components/Logo.tsx` draws them with a CSS mask in the current text color, so the logo is ink on concrete in the light theme and off-white on black in the dark theme, with no separate white version and no white box.
+- **Sizes**: use the full lockup from about 160 px wide up (hero, footer, sharing image); below that, use the wordmark (the frame and the small lines are not readable at header height). Header: the wordmark as a link to the home page.
+- **Rules**: never stretched, never recolored (it is always the theme's ink), clear space around it of at least the height of the "C". It is a drawing, not text, so a page headline is always real text and never the logo.
+- **Interim**: when the owner or the logo's designer supplies the original vector, replace the two files (same names, one path, a viewBox, no embedded raster); the guard test in `tests/unit/logo.test.ts` checks that.
 
 ## Copy and voice
 
@@ -162,7 +167,7 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Open items
 
-1. Original vector logo with a transparent background, and a white version for the dark theme.
+1. The original vector logo, to replace the interim traced files (not blocking; the site already uses the official logo).
 2. Confirm with the owner that the brand is strictly black and white (and that no accent color is wanted).
 3. Photography for the hero and the barbers, and the consent for client photos.
 4. Owner review of this direction.
