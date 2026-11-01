@@ -88,7 +88,12 @@ export function createWidgetLoader(options: LoaderOptions) {
     }
   }
 
-  return { getState: () => state, load, open, notifyFrameLoaded };
+  /** Closes the booking window (the widget's own close button does the same). */
+  function hide() {
+    instance?.hide();
+  }
+
+  return { getState: () => state, load, open, hide, notifyFrameLoaded };
 }
 
 export type WidgetLoader = ReturnType<typeof createWidgetLoader>;

@@ -4,6 +4,7 @@ import { useLocale } from "next-intl";
 import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
 import { bookingConfig } from "@/lib/booking/config";
 import type { BookingIntent } from "@/lib/booking/intents";
+import { createExitWatcher } from "@/lib/booking/exit";
 import { listenToWidget } from "@/lib/booking/messages";
 import {
   createWidgetLoader,
@@ -59,6 +60,11 @@ export function BookingProvider({ branchId, fallbackUrl, children }: Props) {
     [loader],
   );
 
+  const exit = useMemo(() => createExitWatcher(() => loader.hide()), [loader]);
+
+  // Escape and the Back button close the booking window (see lib/booking/exit.ts).
+  useEffect(() => exit.start(), [exit]);
+
   useEffect(() => {
     const preload = () => void loader.load(locale);
     if (typeof window.requestIdleCallback === "function") {
@@ -72,9 +78,13 @@ export function BookingProvider({ branchId, fallbackUrl, children }: Props) {
   const value = useMemo<BookingContextValue>(
     () => ({
       fallbackUrl: fallbackUrl ?? bookingConfig.fallbackUrl,
-      open: (intent) => loader.open(locale, intent),
+      open: async (intent) => {
+        const opened = await loader.open(locale, intent);
+        if (opened) exit.opened();
+        return opened;
+      },
     }),
-    [loader, locale, fallbackUrl],
+    [loader, exit, locale, fallbackUrl],
   );
 
   return <BookingContext.Provider value={value}>{children}</BookingContext.Provider>;
