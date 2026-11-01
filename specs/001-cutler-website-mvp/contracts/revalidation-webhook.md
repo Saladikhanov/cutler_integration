@@ -32,12 +32,13 @@ Tags are assigned to cached data with `cacheTag` inside `'use cache'` functions.
 |---|---|---|
 | Valid signature, known type | 200 | `{ "revalidated": true, "tags": [...] }` |
 | Valid signature, unknown type | 200 | `{ "revalidated": false }` |
-| Missing or invalid signature | 401 | `{ "message": "Invalid signature" }` |
+| Missing or invalid signature, or `SANITY_REVALIDATE_SECRET` not set on the server | 401 | `{ "message": "Invalid signature" }` |
 | Malformed body | 400 | `{ "message": "Bad request" }` |
 | Wrong method | 405 | empty |
 
 ## Rules
 
+- With no secret configured the route refuses every request (the signature helper would otherwise skip validation).
 - The secret is read from the environment variable `SANITY_REVALIDATE_SECRET`; it is never logged or committed.
 - The endpoint changes only cache state; it reads and returns no content.
 - A time-based revalidation (about every 24 hours) remains as a safety net if a webhook is missed.
