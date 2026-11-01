@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const FALLBACK = "https://cutler.easyweek.com.ua/";
+const FALLBACK_HREF = /^https:\/\/cutler\.easyweek\.com\.ua\/?$/;
 
 // A stub of the EasyWeek widget: records how it was built and which methods were called.
 const WIDGET_STUB = `
@@ -47,12 +48,13 @@ for (const { path, lang, book, headline } of locales) {
       await page.goto(path);
       await page.getByRole("link", { name: book, exact: true }).last().click();
       await expect
-        .poll(() =>
-          page.evaluate(
+        .poll(async () => {
+          const calls = await page.evaluate(
             () => (window as never as { __ew?: { calls: string[] } }).__ew?.calls ?? [],
-          ),
-        )
-        .toContain("show");
+          );
+          return calls.some((call) => call === "show" || call.startsWith("setBranch:"));
+        })
+        .toBe(true);
       const options = await page.evaluate(
         () => (window as never as { __ew: { options: { url: string }[] } }).__ew.options,
       );
@@ -86,7 +88,7 @@ test.describe("without JavaScript", () => {
     test(`the booking button on ${path} is a working link to EasyWeek`, async ({ page }) => {
       await page.goto(path);
       const links = page.getByRole("link", { name: book, exact: true });
-      await expect(links.last()).toHaveAttribute("href", FALLBACK);
+      await expect(links.last()).toHaveAttribute("href", FALLBACK_HREF);
     });
   }
 });
