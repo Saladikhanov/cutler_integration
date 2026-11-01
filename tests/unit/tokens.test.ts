@@ -50,9 +50,9 @@ describe("design tokens", () => {
 });
 
 describe("shape tokens", () => {
-  it("defines the control and card radii, matched to the booking widget", () => {
-    expect(css).toMatch(/--radius-control:\s*10px/);
-    expect(css).toMatch(/--radius-card:\s*16px/);
+  it("defines the control and card radii as tokens, square by decision", () => {
+    expect(css).toMatch(/--radius-control:\s*0px/);
+    expect(css).toMatch(/--radius-card:\s*0px/);
   });
 });
 

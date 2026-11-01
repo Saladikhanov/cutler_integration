@@ -31,8 +31,8 @@ Tested against the real widget on a phone and on desktop on 2026-11-01. Theme: *
 | Background | `#E6E6E3` | light grey behind the white cards, so the cards separate and the icons stay visible |
 
 What this gives: white cards with 16 px corners on a light grey page, neon Next button with black text, neon
-outline and check on the selected service. The corner radii match our site (`--radius-card` 16 px,
-`--radius-control` 10 px).
+outline and check on the selected service. The widget's rounded corners (cards 16 px, small controls 10 px)
+cannot be changed; our site is deliberately square, so the two differ.
 
 ### Known limits
 

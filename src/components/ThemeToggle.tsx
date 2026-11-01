@@ -52,7 +52,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-pressed={theme === null ? undefined : theme === "dark"}
-      className={`inline-flex size-11 items-center justify-center rounded-control border-3 border-ink text-ink transition-colors duration-150 hover:bg-ink hover:text-bg motion-reduce:transition-none ${
+      className={`inline-flex size-11 items-center justify-center rounded-control bg-surface text-ink transition-colors duration-150 hover:bg-ink hover:text-bg motion-reduce:transition-none ${
         theme === null ? "invisible" : ""
       }`}
     >

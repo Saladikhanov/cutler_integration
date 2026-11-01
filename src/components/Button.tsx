@@ -3,11 +3,11 @@ import type { AnchorHTMLAttributes } from "react";
 export type ButtonVariant = "primary" | "secondary";
 
 const base =
-  "inline-flex min-h-11 items-center rounded-control justify-center border-3 border-ink px-3 py-2 sm:px-6 text-ui transition-colors duration-150 motion-reduce:transition-none";
+  "inline-flex min-h-11 items-center justify-center rounded-control px-3 py-2 sm:px-6 text-ui transition-colors duration-150 motion-reduce:transition-none";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "btn-primary border-ink bg-accent text-on-accent hover:text-bg active:text-bg",
-  secondary: "bg-transparent text-ink hover:bg-ink hover:text-bg active:bg-ink active:text-bg",
+  primary: "btn-primary bg-accent text-on-accent hover:text-bg active:text-bg",
+  secondary: "bg-surface text-ink hover:bg-ink hover:text-bg active:bg-ink active:text-bg",
 };
 
 /** The class list for a button-looking link, so a locale-aware `Link` can reuse the same look. */

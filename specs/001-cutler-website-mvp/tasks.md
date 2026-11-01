@@ -144,10 +144,10 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 
 **Independent Test**: with a service that has no price or duration, only name and description appear; with them set, they appear; a booking button is next to the list.
 
-- [ ] T061 [P] [US3] Write unit tests first in `tests/unit/format.test.ts`: price in UAH and duration formatted for `uk` and `en`; nothing is rendered when price or duration is absent; `priceNote` is shown only when present
-- [ ] T062 [US3] Implement `src/lib/format.ts` to pass T061
-- [ ] T063 [P] [US3] Write e2e tests in `tests/e2e/us3-services.spec.ts` against fixtures: services in both languages, optional fields omitted when unset, a booking button next to the list, the no-JavaScript HTML contains the services
-- [ ] T064 [US3] Create `src/components/ServiceList.tsx` and add it to `src/app/[locale]/page.tsx` as the services section, ordered by `order`, with a booking button next to it; no empty frames when there are no services
+- [X] T061 [P] [US3] Write unit tests first in `tests/unit/format.test.ts`: price in UAH and duration formatted for `uk` and `en`; nothing is rendered when price or duration is absent; `priceNote` is shown only when present
+- [X] T062 [US3] Implement `src/lib/format.ts` to pass T061
+- [X] T063 [P] [US3] Write e2e tests in `tests/e2e/us3-services.spec.ts` against fixtures: services in both languages, optional fields omitted when unset, a booking button next to the list, the no-JavaScript HTML contains the services
+- [X] T064 [US3] Create `src/components/ServiceList.tsx` and add it to `src/app/[locale]/page.tsx` as the services section, ordered by `order`, with a booking button next to it; no empty frames when there are no services
 - [ ] T065 (manual) [US3] The owner enters the verified services in the Studio with `easyweekProductId` when known; the developer does not invent services, prices or durations
 
 ---

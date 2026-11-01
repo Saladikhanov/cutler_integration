@@ -105,7 +105,7 @@ Families are `font-display` and `font-text`; they read the variables `next/font`
 - **Services**: rows, not cards: name left, duration and price right, a thin rule between rows. Price and duration only when the owner confirmed them.
 - **Barbers**: photo-led cards, portrait ratio, name below; Book slides up on hover and on keyboard focus. English badge only when confirmed.
 - **Footer**: the full logo lockup, large.
-- **Shape**: corner radii match the EasyWeek booking widget so the booking window does not look foreign: 10 px for controls (buttons, the theme toggle, inputs) and 16 px for cards and photos (tokens `--radius-control` and `--radius-card`, measured from the widget on 2026-11-01: service cards 16 px, small controls 10 px, bottom sheet 15 px). Rules and section dividers stay sharp lines. No shadows, no glass, no blur.
+- **Shape**: square. No corner radius on controls, cards and photos, and no borders on buttons, the theme toggle, the language links or picture frames: they are fills (the neon, the surface tone, the ink). Rules and section dividers are sharp lines. No shadows, no glass, no blur. The radius tokens (`--radius-control`, `--radius-card`) exist and are set to 0, so a change would be one line. The EasyWeek booking window has rounded corners (cards 16 px, small controls 10 px) that cannot be restyled; we accept that difference.
 - **Mobile**: the wordmark fills the width; the photo slot sits below it, overlapping its lower edge; the sticky bottom bar (Book primary, Call secondary) reserves its own padding. Book is the largest touch target on every page.
 
 ```text
@@ -167,6 +167,8 @@ Responsive from 320 px; visible keyboard focus everywhere (a 3 px ink outline wi
 
 ## Decisions log
 
+- 2026-11-01: the profile-picture placeholder (`PhotoPlaceholder`) is for the individual barber pages and cards (US4). The home hero shows no placeholder; it gets a picture of the barbershop when the owner supplies one.
+- 2026-11-01: corners back to square and borders removed from controls (the developer prefers the sharper, borderless look over matching the EasyWeek widget's rounded corners). Reverses the earlier radius decision of the same day.
 - 2026-11-01: today's hours and the closed notice removed from the header (little benefit, and "closed" at the top of every page sits next to the Book button); hours appear only in the contact section (US5).
 - 2026-11-01: corner radii changed from 0 to 10 px (controls) and 16 px (cards, photos) to match the EasyWeek widget, whose own corners cannot be restyled. EasyWeek's Branding settings use the same neon, white and `#222222` palette.
 - 2026-11-01: `scrollbar-gutter: stable` on the page, because the widget locks page scrolling when it opens and the disappearing scrollbar moved the header by 15 px.

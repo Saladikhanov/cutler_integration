@@ -36,7 +36,7 @@ for (const { path, lang, book, headline } of locales) {
       await expect(h1).toHaveText(headline);
       await expect(page.getByRole("img", { name: /CUTLER/ }).first()).toBeVisible();
 
-      const button = page.getByRole("link", { name: book, exact: true }).last();
+      const button = page.locator("main").getByRole("link", { name: book, exact: true }).first();
       await expect(button).toBeVisible();
       const box = await button.boundingBox();
       const viewport = page.viewportSize();

@@ -55,9 +55,12 @@
 }
 
 @theme {
-  /* Corner radii, matched to the EasyWeek booking widget (cards 16px, small controls 10px) for consistency. */
-  --radius-control: 10px;
-  --radius-card: 16px;
+  /*
+    Corner radii: square, by decision (2026-11-01). The EasyWeek widget has 10px and 16px corners that we
+    cannot restyle; we prefer our own sharp look. The tokens stay so a change is one line.
+  */
+  --radius-control: 0px;
+  --radius-card: 0px;
 
   /* Font families. The --font-* variables on the right are set by next/font in the root layout. */
   --font-display: var(--font-roboto-condensed, system-ui), system-ui, sans-serif;
@@ -171,6 +174,46 @@
 }
 
 /*
+  A section ("beat"): a heavy rule across its top, and a services row that lights up in the neon on hover
+  or tap (fill with dark text; the muted meta text follows). Rows are links, so touch devices need :active.
+*/
+.beat {
+  position: relative;
+}
+
+.beat::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+.row-link {
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+.row-link:hover,
+.row-link:active {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.row-link:hover .row-meta,
+.row-link:active .row-meta {
+  color: var(--on-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row-link {
+    transition: none;
+  }
+}
+
+/*
   Motion (docs/design.md): on first load the wordmark rises into place, then the header fades in and
   the tagline and Book button rise; the wordmark drifts sideways as the hero scrolls away. Everything
   uses transform and opacity, and only runs for visitors who have not asked for reduced motion;
@@ -195,6 +238,45 @@
       animation-timeline: scroll(root);
       animation-range: 0 100vh;
     }
+  }
+}
+
+/* Scroll-driven, no JavaScript: a section's rule draws in and its content rises as it enters the screen. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .beat::before {
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 50%;
+    }
+
+    .reveal-view {
+      animation: lift-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes lift-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

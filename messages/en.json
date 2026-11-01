@@ -37,5 +37,11 @@
   },
   "ThemeToggle": {
     "label": "Dark theme"
+  },
+  "Services": {
+    "title": "Services",
+    "bookPrefix": "Book:",
+    "minutes": "{n} min",
+    "hours": "{n} h"
   }
 }

@@ -37,5 +37,11 @@
   },
   "ThemeToggle": {
     "label": "Темна тема"
+  },
+  "Services": {
+    "title": "Послуги",
+    "bookPrefix": "Записатися:",
+    "minutes": "{n} хв",
+    "hours": "{n} год"
   }
 }
