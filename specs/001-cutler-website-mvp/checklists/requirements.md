@@ -31,6 +31,5 @@
 
 ## Notes
 
-- Unknown business facts are listed under "Open Questions (for the owner)" in the spec rather than as clarification markers, because they are owner-supplied content, not design decisions. Run `/speckit-clarify` to resolve them before `/speckit-plan`.
+- Unknown business facts are owner-supplied content, not design decisions, so they are not clarification markers. The spec's Assumptions say they come from the owner and that nothing unconfirmed is shown.
 - The `/en` route prefix and the named analytics events are carried over from the owner's brief as fixed requirements, not implementation choices.
-- FR-014 (consent) is conditional on "where consent is required"; the exact requirement is an open question for the owner.
