@@ -1,0 +1,32 @@
+{
+  "Common": {
+    "book": "Book",
+    "call": "Call",
+    "skipToContent": "Skip to main content"
+  },
+  "Nav": {
+    "home": "Home",
+    "barbers": "Barbers"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "uk": "Українська",
+    "en": "English"
+  },
+  "Footer": {
+    "cookieSettings": "Cookie settings"
+  },
+  "Consent": {
+    "text": "We use analytics to understand how visitors use the site. It only turns on after you agree.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "This page does not exist.",
+    "home": "Back to home"
+  },
+  "Home": {
+    "comingSoon": "The website is coming soon"
+  }
+}
