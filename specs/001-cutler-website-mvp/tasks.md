@@ -40,7 +40,7 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 - [X] T009 Add `.github/workflows/ci.yml` running lint, typecheck, unit tests, build, and commitlint on pull requests (e2e and Lighthouse added in T102)
 - [X] T010 [P] Add `release-please-config.json` and `.github/workflows/release.yml` for SemVer tags and changelog from commits, starting at `0.1.0` (`0.x` until launch, `1.0.0` at launch)
 - [ ] T011 (manual, deferred to the first deploy at the MVP checkpoint after US2, not before) Create the Vercel project in the developer's Pro team linked to the repository on GitHub (owner approved 2026-11-01); set env var names in Vercel without committing values; deploy only the production branch and skip preview builds for other branches, add a spend alert on the team (check Vercel's current settings); until the domain exists, set `NEXT_PUBLIC_SITE_URL` to the `*.vercel.app` address
-- [ ] T012 Update `CLAUDE.md`: commands (`dev`, `lint`, `typecheck`, `test`, `test:e2e`, `build`, `lhci`), Node 26 LTS, Tailwind v4, no component or animation library without a stated need, Conventional Commits and SemVer
+- [X] T012 Update `CLAUDE.md`: commands (`dev`, `lint`, `typecheck`, `test`, `test:e2e`, `build`, `lhci`), Node 26 LTS, Tailwind v4, no component or animation library without a stated need, Conventional Commits and SemVer
 
 **Checkpoint**: the scaffold builds locally and CI on GitHub is green. The Vercel project (T011) is created later, at the first deploy.
 

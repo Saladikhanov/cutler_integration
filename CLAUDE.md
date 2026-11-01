@@ -4,13 +4,21 @@ Bilingual (uk default, en) marketing site for CUTLER, a barbershop in Dnipro, Uk
 friend of the developer: the business owner keeps ownership of every business account and production asset.
 The main conversion is a visitor starting a booking on the existing EasyWeek page
 (https://cutler.easyweek.com.ua/ until the owner confirms another URL).
-Stack: Next.js (App Router) · TypeScript strict · next-intl (uk at `/`, en at `/en`) · hosted Sanity CMS for
-business content and images (owner-owned). Greenfield: no app code yet. Site covers the Dnipro branch only.
+Stack: Next.js 16 (App Router, Cache Components) · React 19 · TypeScript strict · Tailwind CSS v4 · next-intl
+(uk at `/`, en at `/en`) · hosted Sanity CMS for business content and images (owner-owned) · Node 26 LTS.
+Site covers the Dnipro branch only. The app is scaffolded; features are built from `specs/001-cutler-website-mvp/tasks.md`.
+Before writing Next.js code, read the relevant guide in `node_modules/next/dist/docs/` (see `AGENTS.md`): this Next.js
+has breaking changes. Caching: Sanity reads are `'use cache'` functions with `cacheTag`; the webhook calls
+`revalidateTag(tag, { expire: 0 })`.
 EasyWeek research and widget findings: `specs/001-cutler-website-mvp/research-easyweek.md`.
 
 ## Commands
-Not set up yet. Once Slice 1 exists, `npm run lint`, `npm run build` and a typecheck are required before merge.
-Report real command output; never claim a check passed if it was not run.
+- `nvm use` (Node 26 from `.nvmrc`), `npm install`
+- `npm run dev`, `npm run build`, `npm run start`
+- `npm run lint`, `npm run typecheck`, `npm run format:check`, `npm test` (Vitest), `npm run test:e2e` (Playwright, needs `npm run build` first), `npm run lhci`
+- Required before merge: lint, typecheck, format:check, test and build. Report real command output; never claim a check passed if it was not run.
+- Commits follow Conventional Commits 1.0.0 (checked by commitlint); releases follow SemVer, 0.x until launch (release-please).
+- Styling is Tailwind v4 with design tokens in `src/app/globals.css`; no component or animation library without a need stated in the plan.
 
 ## Spec-driven development (Spec Kit 1.2.5)
 - Principles: `.specify/memory/constitution.md`. Read it and the active spec before planning or coding.
