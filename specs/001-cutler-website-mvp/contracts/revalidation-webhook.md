@@ -24,6 +24,8 @@
 
 A barber change also affects the sitemap, which reads the `barber` tag.
 
+Tags are assigned to cached data with `cacheTag` inside `'use cache'` functions. The route calls `revalidateTag(tag, { expire: 0 })` (the two-argument form; the single-argument form is deprecated), so the next request after a publish gets fresh content.
+
 ## Responses
 
 | Case | Status | Body |

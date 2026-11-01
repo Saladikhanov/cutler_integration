@@ -30,12 +30,15 @@ Each decision lists what was chosen, why, and what else was considered. Anything
 - **Free plan (checked 2026-11-01, see the Sanity pricing page)**: 20 seats, 10,000 documents, 250k API requests and 1M API CDN requests a month, 100 GB asset storage and bandwidth. Sources disagree on the number of datasets (1 or 2); we need one. **Verify** the current limits before launch.
 - **Draft content**: no preview mode in the MVP; the owner publishes directly. Add later if wanted.
 
-## D4. Caching and refresh
+## D4. Caching and refresh (updated 2026-11-01 for Next.js 16.4 Cache Components)
 
-- **Decision**: Tag-based caching. Every Sanity fetch passes tags (`service`, `barber`, `barber:<slug>`, `shopDetails`, `siteSettings`). A Sanity webhook posts to `/api/revalidate` on publish; the route validates the signature with the shared secret (`next-sanity/webhook` `parseBody`) and calls `revalidateTag` for the matching tags. A safety-net time-based revalidation (for example, 24 hours) covers a missed webhook.
-- **Rationale**: the owner's changes appear within seconds, with no redeploy. Tag revalidation is the documented pattern for the App Router.
-- **Alternatives**: Rebuild on every publish through a deploy hook (slower, uses build minutes). Time-based only (owner waits hours). Sanity's Live Content API (more moving parts, not needed for rare edits).
-- **Verify**: the exact `revalidateTag` signature in the installed Next.js 16 release, and that the chosen host honors on-demand revalidation (see D5).
+- **Decision**: keep the starter's Cache Components setup (`cacheComponents: true`, `partialPrefetching: true`). Data fetching is dynamic by default, so every Sanity read lives in a small server function marked `'use cache'` that calls `cacheTag(...)` (`service`, `barber`, `barber:<slug>`, `shopDetails`, `siteSettings`) and sets `cacheLife` with a safety-net refresh of about 24 hours. A Sanity webhook posts to `/api/revalidate` on publish; the route validates the signature with the shared secret (`next-sanity/webhook` `parseBody`) and calls `revalidateTag(tag, { expire: 0 })` for the matching tags.
+- **Why `{ expire: 0 }`**: the recommended `"max"` profile serves stale content once while it refreshes; for an owner who publishes and then checks the site, the next request should be fresh. Cost: that one request waits for the refresh. The single-argument `revalidateTag(tag)` is deprecated and is not used.
+- **Rationale**: this is the framework's current caching model, and it gives prerendered pages with on-demand refresh and no redeploy (SEO-first, constitution VII).
+- **Dynamic routes**: with Cache Components, `generateStaticParams` on a dynamic route must return at least one param and an empty list is a build error. For `/barbers/[slug]` the function returns the eligible slugs, or a reserved placeholder slug when there are none, which renders the not-found page and is never linked or listed in the sitemap. A barber published after the build is not in the list, so the page renders on demand and is cached (await `params` inside `<Suspense>`, which Partial Prefetching allows).
+- **Navigation and effects**: Cache Components keeps recently visited routes hidden with React `<Activity>` and cleans up their effects, re-running them when the route is visible again. The widget provider and the analytics hooks live in the root layout and must be safe to re-run; page-view counting is verified for one view per navigation.
+- **Alternatives**: `fetch` with `next.tags` outside `'use cache'` (dynamic by default under Cache Components, so it would not be cached). Turning Cache Components off and following the "caching without Cache Components" guide (older model, kept as a fallback). Rebuild on every publish through a deploy hook (slower, uses build minutes). Sanity's Live Content API (not needed for rare edits).
+- **Verify**: behavior on the deployed site (T043) and the empty-barbers build.
 
 ## D5. Hosting (decision gate, one open item)
 

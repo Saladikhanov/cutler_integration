@@ -16,6 +16,8 @@ A bilingual (Ukrainian at `/`, English at `/en`), SEO-first marketing site for C
 
 **Storage**: Sanity Content Lake (hosted, public dataset) for business content and images. No database of our own. Browser `localStorage` for the consent choice only.
 
+**Caching**: Next.js 16.4 Cache Components (`cacheComponents` and `partialPrefetching` on, as in the starter): Sanity reads are `'use cache'` functions tagged with `cacheTag`, refreshed on publish by `revalidateTag(tag, { expire: 0 })` from the webhook, with a safety-net `cacheLife` of about 24 hours (research D4).
+
 **Testing**: Vitest (unit), Playwright with axe (end to end, accessibility, no-JavaScript rendering, consent gating), Lighthouse CI (budgets), and a manual smoke checklist against the real EasyWeek widget.
 
 **Target Platform**: Modern mobile and desktop browsers, phone first; in-app browsers (Instagram) to be checked. Hosting: Vercel Pro (see research D5).
