@@ -70,21 +70,29 @@ Two families at most, plus one for hand-drawn marks. All candidates were checked
 
 | Role | Proposal | Notes |
 |---|---|---|
-| Display (headlines, price figures) | **Unbounded** 800 (600 for smaller headings) | wide and geometric; use large and short. Long Ukrainian words get wide on a 360 px phone, so headlines are written short and the size scales with `clamp()`. |
-| Text and interface | **Onest** 400 and 600 | readable at body size, tidy Cyrillic |
+| Display (headlines) | **Unbounded** 800 (600 for smaller headings) | wide and geometric; use large and short. Long Ukrainian words get wide on a 360 px phone, so headlines are written short and the size scales with `clamp()`. Not used for price figures: its zero looks like the letter O. |
+| Text, interface and price figures | **Onest** 400 and 600 (`tabular-nums` for prices) | readable at body size, tidy Cyrillic, clear digits |
 | Hand-drawn marks | **Caveat** 600 | the only candidate that reads as marker handwriting; decorative only |
 
 Alternatives seen in the specimen: Geologica or Golos Text for text; condensed Oswald, Roboto Condensed or Fira Sans Extra Condensed if a narrower display face is preferred (better for long Ukrainian words on small phones, but a more poster-like voice). **Ruled out because they have no Cyrillic**: Bricolage Grotesque, Space Grotesk, Archivo, Syne, Epilogue, Instrument Sans, Bebas Neue.
 
 Loading: self-hosted by `next/font` with subsets `cyrillic`, `cyrillic-ext` (the hryvnia sign ₴ is only in this one) and `latin`. The browser downloads a subset file only when its characters appear. `display: swap` with a size-adjusted fallback to avoid layout shift.
 
-Scale (fluid, mobile first), sentence case everywhere, no all caps:
+### Typography tokens
 
-- Display XL: `clamp(2.5rem, 9vw, 6rem)`, line height 1.05, hero headline only
-- Display L: `clamp(2rem, 6vw, 3.5rem)`, section headings
-- Display M: `1.5rem`, price figures and barber names
-- Body: `1.0625rem` (17 px), line height 1.55; line length at most 70 characters
-- Small: `0.875rem`, line height 1.45
+Font size, line height, letter spacing and weight are tokens that travel together, defined once in `src/app/globals.css` (Tailwind `@theme`). A component picks one step with one class (for example `text-display-xl`) and never sets a size, line height, letter spacing or weight by hand; a unit test (`tests/unit/tokens.test.ts`) fails on arbitrary values such as `text-[17px]` or `leading-[1.2]`. Sentence case everywhere, no all caps. Fluid and mobile first.
+
+| Token (utility) | Size | Line height | Letter spacing | Weight | Family | Use |
+|---|---|---|---|---|---|---|
+| `text-display-xl` | `clamp(2.5rem, 9vw, 6rem)` | 1.05 | -0.015em | 800 | display | hero headline only |
+| `text-display-l` | `clamp(2rem, 6vw, 3.5rem)` | 1.1 | -0.01em | 800 | display | section headings |
+| `text-display-m` | `1.5rem` | 1.2 | -0.005em | 600 | display | barber names, sub-headings |
+| `text-body` | `1.0625rem` | 1.55 | 0 | 400 | text | running copy (line length at most 70 characters) |
+| `text-ui` | `1rem` | 1.25 | 0 | 600 | text | buttons, navigation, price figures |
+| `text-small` | `0.875rem` | 1.45 | 0.005em | 400 | text | durations, captions, footer |
+| `text-annotation` | `1.75rem` | 1.1 | 0 | 600 | hand | hand-drawn marks only |
+
+Families are `font-display`, `font-text` and `font-hand`; they read the variables that `next/font` sets (T023), so changing a font is a one-line change, not a component change.
 
 ## Layout
 

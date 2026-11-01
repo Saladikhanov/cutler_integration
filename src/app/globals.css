@@ -1,5 +1,116 @@
 @import "tailwindcss";
 
-/* Design tokens for the light and dark themes are added in T022, from docs/design.md. */
+/*
+  Design tokens, defined once (docs/design.md, constitution VIII).
+  Components use these tokens through Tailwind utilities (bg-bg, text-ink, text-display-xl, ...)
+  and never set colors, font sizes, line heights or weights ad hoc.
+  Colors are provisional until the owner's logo arrives; re-run scripts/check-contrast.mjs after any change.
+*/
+
+/* Raw colors per theme. Light is the base; dark follows the device, or data-theme="dark". */
+:root {
+  color-scheme: light;
+  --bg: #e4e4e0;
+  --surface: #f2f2ef;
+  --ink: #0f1b2d;
+  --muted: #4a5566;
+  --red: #c8261d;
+  --blue: #1f43e0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e131c;
+    --surface: #17202f;
+    --ink: #edede8;
+    --muted: #a9b2c1;
+    --red: #ff5b50;
+    --blue: #8196ff;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e131c;
+  --surface: #17202f;
+  --ink: #edede8;
+  --muted: #a9b2c1;
+  --red: #ff5b50;
+  --blue: #8196ff;
+}
+
+/*
+  `inline` makes the utilities read the live variables above, so they switch with the theme.
+  Do not use dark: variants; the tokens carry both themes.
+*/
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-red: var(--red);
+  --color-blue: var(--blue);
+}
+
 @theme {
+  /* Font families. The --font-* variables on the right are set by next/font in the root layout (T023). */
+  --font-display: var(--font-unbounded, system-ui), system-ui, sans-serif;
+  --font-text: var(--font-onest, system-ui), system-ui, sans-serif;
+  --font-hand: var(--font-caveat, cursive), cursive;
+
+  /* Type scale. Each step carries size, line height, letter spacing and weight together. */
+  --text-display-xl: clamp(2.5rem, 9vw, 6rem);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.015em;
+  --text-display-xl--font-weight: 800;
+
+  --text-display-l: clamp(2rem, 6vw, 3.5rem);
+  --text-display-l--line-height: 1.1;
+  --text-display-l--letter-spacing: -0.01em;
+  --text-display-l--font-weight: 800;
+
+  --text-display-m: 1.5rem;
+  --text-display-m--line-height: 1.2;
+  --text-display-m--letter-spacing: -0.005em;
+  --text-display-m--font-weight: 600;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.55;
+  --text-body--letter-spacing: 0;
+  --text-body--font-weight: 400;
+
+  --text-ui: 1rem;
+  --text-ui--line-height: 1.25;
+  --text-ui--letter-spacing: 0;
+  --text-ui--font-weight: 600;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+  --text-small--letter-spacing: 0.005em;
+  --text-small--font-weight: 400;
+
+  --text-annotation: 1.75rem;
+  --text-annotation--line-height: 1.1;
+  --text-annotation--letter-spacing: 0;
+  --text-annotation--font-weight: 600;
+
+  /* The one signature gradient (the fade). One thin band; never behind text or as a page background. */
+  --gradient-fade: linear-gradient(100deg, var(--red), var(--blue));
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* Visible keyboard focus everywhere (docs/design.md, quality floor). */
+  :focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+  }
 }

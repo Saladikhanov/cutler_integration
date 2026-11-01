@@ -5,9 +5,10 @@ export default async function Home() {
   const t = await getTranslations("Home");
 
   return (
-    <main id="main">
-      <h1>CUTLER</h1>
-      <p>{t("comingSoon")}</p>
+    <main id="main" className="bg-bg px-4 py-8 text-ink">
+      <h1 className="font-display text-display-xl">CUTLER</h1>
+      <p className="text-body text-muted">{t("comingSoon")}</p>
+      <div className="mt-6 h-1.5 w-full bg-(image:--gradient-fade)" />
     </main>
   );
 }
