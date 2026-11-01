@@ -247,6 +247,7 @@ Single Next.js app in `src/`, Sanity Studio config in `studio/`, tests in `tests
 - [ ] T112 Write `docs/handover.md`: how to deploy and roll back, how to edit content in the Studio, how to manage analytics and consent, how to read EasyWeek analytics for bookings, and a "when the phone, hours or address change, update the Studio, EasyWeek, the Business Profile and any social bios" checklist
 - [ ] T113 (manual) Transfer the Vercel project (with domain and environment variables) to a team the owner owns, following Vercel's transfer guide; remove any developer-held test properties; reduce developer access to the agreed collaborator roles
 - [ ] T114 Tag `v1.0.0` through release-please at launch and confirm the changelog
+- [ ] T115 (manual) At launch, with the owner's approval, apply the new EasyWeek Branding colors from [docs/easyweek-branding.md](../../docs/easyweek-branding.md) (they change all branches' booking pages), walk through the booking steps on the deployed site in both languages on a phone and on desktop, and restore the original values listed there if anything is unreadable
 
 ---
 

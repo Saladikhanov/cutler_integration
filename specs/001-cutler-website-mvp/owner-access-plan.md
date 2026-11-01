@@ -63,3 +63,4 @@ Follow-up for GA4 access: «Додай мій акаунт у GA4 як Viewer: A
 3. No developer-held test properties remain.
 4. Deploy, rollback, content-update, analytics and access-transfer notes are written down.
 5. Developer access is reduced to the agreed collaborator roles.
+6. The new EasyWeek Branding colors are applied with the owner's approval and checked (see [docs/easyweek-branding.md](../../docs/easyweek-branding.md)); the original values are recorded there in case they must be restored.
