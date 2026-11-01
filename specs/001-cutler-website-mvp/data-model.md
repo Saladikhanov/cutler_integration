@@ -32,15 +32,15 @@ Rules: a service with no verified price or duration shows only the name and desc
 | slug | Slug | required, unique, same in both languages |
 | name | LocalizedString | required; the owner decides the spelling per language |
 | position | LocalizedString | optional |
-| photo | LocalizedImage | required for the card |
+| photo | LocalizedImage | optional; a profile-picture placeholder is shown until it is supplied |
 | languages | list of `uk` / `en` | owner-confirmed; drives the "English" badge and the filter |
 | shortDescription | LocalizedText | optional |
 | heroImage | LocalizedImage | optional |
-| works | list of LocalizedImage | optional examples of work |
+| works | list of LocalizedImage | examples of work; the page shows placeholder slots up to a minimum of 3 |
 | order | integer | required |
 | easyweekUserId | string | needed for "Book with this barber" (FR-030) |
 
-**Own page eligibility** (FR-026): a barber gets a page only if `shortDescription` is set in both languages and `works` has at least one image. Otherwise the barber shows only as a card, with no link. The card's "Book with this barber" button needs `easyweekUserId`; without it the card's button opens the Dnipro branch booking instead.
+**Page content rule** (FR-026): every barber has a page. Anything not supplied is a placeholder: a profile-picture placeholder for a missing `photo`, placeholder text (lorem ipsum) for a missing `shortDescription` in the language of the page, and placeholder slots so that at least 3 example works are shown. A page is *complete* only with a photo, a description in both languages and at least 3 work images (`src/lib/sanity/barber-content.ts`); only complete pages are indexed and in the sitemap, and every placeholder must be gone before launch. The card's "Book with this barber" button needs `easyweekUserId`; without it the card's button opens the Dnipro branch booking instead.
 
 **English filter**: shows barbers whose `languages` contain `en` (FR in User Story 4). A barber is never marked English-speaking unless confirmed.
 
@@ -77,7 +77,7 @@ Rules: every field is optional except `easyweekBranchId`, `bookingFallbackUrl` a
 
 ## Relationships and queries
 
-- Barbers and Services are independent. The home page lists Services by `order`; the barbers page lists Barbers by `order`; each eligible Barber has one page.
+- Barbers and Services are independent. The home page lists Services by `order`; the barbers page lists Barbers by `order`; each Barber has one page.
 - Queries are GROQ, one per page type, each tagged for revalidation: home (`service`, `shopDetails`, `siteSettings`), barbers list (`barber`, `shopDetails`), barber page (`barber:<slug>`, `shopDetails`), sitemap (`barber`).
 - Webhook mapping: see [contracts/revalidation-webhook.md](contracts/revalidation-webhook.md).
 

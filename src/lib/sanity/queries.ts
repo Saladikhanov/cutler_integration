@@ -1,6 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { sanityClient, isSanityConfigured } from "./client";
-import { isBarberEligible } from "./eligibility";
 import { TAGS } from "./tags";
 import type { LocalizedField } from "./localize";
 
@@ -78,12 +77,6 @@ export async function getBarbers(): Promise<Barber[]> {
   cacheTag(TAGS.barber);
   cacheLife("days");
   return fetchTagged(`*[_type == "barber"] | order(order asc) ${BARBER_FIELDS}`, {}, []);
-}
-
-/** Barbers with a page of their own (FR-026). */
-export async function getEligibleBarbers(): Promise<Barber[]> {
-  const barbers = await getBarbers();
-  return barbers.filter(isBarberEligible);
 }
 
 export async function getBarber(slug: string): Promise<Barber | null> {

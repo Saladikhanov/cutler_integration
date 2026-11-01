@@ -42,8 +42,8 @@ export const barber = defineType({
       name: "photo",
       title: "Photo",
       type: "localizedImage",
-      description: "Portrait for the card. Real photo only.",
-      validation: (rule) => rule.required(),
+      description:
+        "Portrait for the card and the page. Real photo only. Until one is added the site shows a placeholder.",
     }),
     defineField({
       name: "languages",
@@ -65,7 +65,7 @@ export const barber = defineType({
       name: "shortDescription",
       title: "Short description",
       description:
-        "Optional. A barber gets a page of their own only with a description in both languages and at least one example of work.",
+        "Both languages. Until it is written the page shows placeholder text, and the page is not indexed by search engines.",
     }),
     defineField({
       name: "heroImage",
@@ -78,7 +78,8 @@ export const barber = defineType({
       title: "Examples of work",
       type: "array",
       of: [defineArrayMember({ type: "localizedImage" })],
-      description: "Optional. At least one is needed for the barber's own page.",
+      description:
+        "Examples of the barber's work. At least three are shown; until there are three the page shows placeholder slots and is not indexed by search engines.",
     }),
     defineField({
       name: "order",

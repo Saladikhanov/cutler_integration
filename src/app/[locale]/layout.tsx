@@ -64,7 +64,8 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
         <link rel="preconnect" href="https://booking.easyweek.com.ua" />
         <ThemeScript />
       </head>
-      <body className="flex min-h-dvh flex-col">
+      {/* Browser extensions (for example ColorZilla) add attributes to <body> before React loads; ignore only that. */}
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-bg focus:p-2 focus:text-ink"
