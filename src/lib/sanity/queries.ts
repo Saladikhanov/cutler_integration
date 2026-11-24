@@ -56,6 +56,8 @@ export type ShopDetails = {
 export type SiteSettings = {
   seoDefaults?: { title?: LocalizedField; description?: LocalizedField } | null;
   shareImage?: Image;
+  /** The home hero's pictures (up to four), shown in turn. */
+  homePhotos?: Image[] | null;
 };
 
 const IMAGE = `{ asset, alt }`;
