@@ -20,3 +20,29 @@ export function todayHours(
   const range = ranges.find((r) => r.days.includes(day));
   return range ? { opens: range.opens, closes: range.closes } : "closed";
 }
+
+const WEEK = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
+
+export type HoursGroup = { days: string[]; hours: { opens: string; closes: string } | null };
+
+/**
+ * The week as groups for display: consecutive days with the same hours together, in week order, with days that
+ * have no range as closed (hours null). Null when no hours are entered at all, so nothing is shown.
+ */
+export function groupHours(ranges: HoursRange[] | null | undefined): HoursGroup[] | null {
+  if (!ranges || ranges.length === 0) return null;
+  const groups: HoursGroup[] = [];
+  for (const day of WEEK) {
+    const range = ranges.find((r) => r.days.includes(day));
+    const hours = range ? { opens: range.opens, closes: range.closes } : null;
+    const last = groups.at(-1);
+    const same =
+      last &&
+      (last.hours === null
+        ? hours === null
+        : hours !== null && last.hours.opens === hours.opens && last.hours.closes === hours.closes);
+    if (last && same) last.days.push(day);
+    else groups.push({ days: [day], hours });
+  }
+  return groups;
+}

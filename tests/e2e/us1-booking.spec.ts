@@ -46,7 +46,7 @@ for (const { path, lang, book, headline } of locales) {
     test("opens the widget in the right language when it is available", async ({ page }) => {
       await stubWidget(page);
       await page.goto(path);
-      await page.getByRole("link", { name: book, exact: true }).last().click();
+      await page.locator("main").getByRole("link", { name: book, exact: true }).first().click();
       await expect
         .poll(async () => {
           const calls = await page.evaluate(
@@ -69,7 +69,7 @@ for (const { path, lang, book, headline } of locales) {
         route.fulfill({ contentType: "text/html", body: "booking page" }),
       );
       await page.goto(path);
-      await page.getByRole("link", { name: book, exact: true }).last().click();
+      await page.locator("main").getByRole("link", { name: book, exact: true }).first().click();
       await expect(page).toHaveURL(FALLBACK);
     });
 

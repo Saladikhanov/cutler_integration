@@ -1,4 +1,6 @@
 import { getTranslations } from "next-intl/server";
+import { BarberList } from "@/components/BarberList";
+import { ContactSection } from "@/components/ContactSection";
 import { BookingButton } from "@/components/BookingButton";
 import { Logo } from "@/components/Logo";
 import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
@@ -31,10 +33,12 @@ export default async function Home() {
             <h1 className="font-display text-display-m">{t("headline")}</h1>
             <p className="mt-2 max-w-prose text-body text-muted">{t("lead")}</p>
           </div>
-          <BookingButton className="w-full sm:w-auto sm:min-w-56" />
+          <BookingButton location="hero" primary className="w-full sm:w-auto sm:min-w-56" />
         </div>
       </section>
       <ServiceList />
+      <BarberList variant="home" />
+      <ContactSection />
     </main>
   );
 }
