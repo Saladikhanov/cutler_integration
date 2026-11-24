@@ -46,6 +46,13 @@ export const barber = defineType({
         "Portrait for the card and the page. Real photo only. Until one is added the site shows a placeholder.",
     }),
     defineField({
+      name: "cutout",
+      title: "Cutout (PNG with a transparent background)",
+      type: "image",
+      description:
+        "Optional. The same person cut out of the background, as a PNG. On the barber's page the name is placed behind the head. Without it the page uses the photo.",
+    }),
+    defineField({
       name: "languages",
       title: "Languages spoken",
       type: "array",
@@ -65,7 +72,15 @@ export const barber = defineType({
       name: "shortDescription",
       title: "Short description",
       description:
-        "Both languages. Until it is written the page shows placeholder text, and the page is not indexed by search engines.",
+        'Both languages. Until it is written the page shows placeholder text, and the page is not indexed by search engines. If it mentions years of experience, write {years} instead of the number and the word for years, for example "{years} in barbering!". The site fills in the number with the right word ("4 years" in English, "4 роки" or "5 років" in Ukrainian) and keeps it current on its own.',
+    }),
+    defineField({
+      name: "experienceSinceYear",
+      title: "Barbering since (year)",
+      type: "number",
+      description:
+        "Optional. The calendar year the barber started. Needed only when the description above uses the {years} placeholder.",
+      validation: (rule) => rule.integer().min(1980).max(new Date().getFullYear()),
     }),
     defineField({
       name: "heroImage",

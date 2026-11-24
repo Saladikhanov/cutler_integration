@@ -4,8 +4,11 @@ import { locale as rootLocale } from "next/root-params";
 import { Onest, Roboto_Condensed } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { BookingProvider } from "@/components/BookingProvider";
 import { Footer } from "@/components/Footer";
+import { MobileBar } from "@/components/MobileBar";
 import { Header } from "@/components/Header";
 import { ThemeScript } from "@/components/ThemeScript";
 import { getShopDetails } from "@/lib/sanity/queries";
@@ -65,7 +68,10 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
         <ThemeScript />
       </head>
       {/* Browser extensions (for example ColorZilla) add attributes to <body> before React loads; ignore only that. */}
-      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
+      <body
+        className="flex min-h-dvh flex-col pb-(--mobile-bar-h) md:pb-0"
+        suppressHydrationWarning
+      >
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-bg focus:p-2 focus:text-ink"
@@ -73,11 +79,19 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
           {t("skipToContent")}
         </a>
         <NextIntlClientProvider>
-          <BookingProvider branchId={shop?.easyweekBranchId} fallbackUrl={shop?.bookingFallbackUrl}>
-            <Header />
-            {children}
-            <Footer />
-          </BookingProvider>
+          <AnalyticsProvider gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || undefined}>
+            <BookingProvider
+              branchId={shop?.easyweekBranchId}
+              fallbackUrl={shop?.bookingFallbackUrl}
+            >
+              <Header />
+              {children}
+              <Footer />
+              <Suspense fallback={null}>
+                <MobileBar phone={shop?.phone} />
+              </Suspense>
+            </BookingProvider>
+          </AnalyticsProvider>
         </NextIntlClientProvider>
       </body>
     </html>

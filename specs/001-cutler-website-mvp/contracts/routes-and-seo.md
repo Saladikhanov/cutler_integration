@@ -7,7 +7,7 @@
 | Ukrainian (default, no prefix) | English | Content | Rendered |
 |---|---|---|---|
 | `/` | `/en` | Home: what CUTLER offers, services, location and contact | prerendered |
-| `/barbers` | `/en/barbers` | Barbers list with English filter | prerendered |
+| `/barbers` | `/en/barbers` | Barbers list | prerendered |
 | `/barbers/[slug]` | `/en/barbers/[slug]` | One barber (only eligible barbers) | prerendered, `generateStaticParams` from Sanity |
 | any unknown path | any unknown path under `/en` | Localized not-found page | not-found, in the locale of the path |
 | `/sitemap.xml` | (same file) | Canonical pages with language alternates | generated |

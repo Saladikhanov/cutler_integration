@@ -46,3 +46,6 @@ next-env.d.ts
 studio/node_modules/
 studio/dist/
 studio/.sanity/
+
+# Unverified barber photos and their cutouts used for experiments; the real ones live in the Studio.
+/docs/brand/barbers-source/

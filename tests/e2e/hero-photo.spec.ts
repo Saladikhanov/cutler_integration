@@ -3,6 +3,11 @@ import { expect, test } from "@playwright/test";
 // Geometry is measured without the entrance animations (they move things for the first two seconds).
 test.use({ reducedMotion: "reduce" });
 
+// The cookie banner would sit over the bottom of the hero on a first visit; here the choice is already made.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("cutler-consent", "declined"));
+});
+
 test.describe("home hero: the place for the barbershop photo", () => {
   test("is there, decorative, and above the wordmark so the letters sit behind it", async ({
     page,

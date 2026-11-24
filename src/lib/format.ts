@@ -25,3 +25,22 @@ export function formatDuration(minutes: number | null | undefined, t: DurationUn
     .filter(Boolean)
     .join(" ");
 }
+
+/** Whole years since a barber's start year, as of `now`. Null when there is no start year to count from. */
+export function yearsSince(startYear: number | null | undefined, now: Date): number | null {
+  if (!startYear) return null;
+  return Math.max(0, now.getFullYear() - startYear);
+}
+
+/** `tel:` address from the digits of a phone number (a leading plus is kept), or null when there are no digits. */
+export function phoneHref(phone: string | null | undefined): string | null {
+  const digits = (phone ?? "").replace(/\D/g, "");
+  if (!digits) return null;
+  return `tel:${(phone ?? "").trim().startsWith("+") ? "+" : ""}${digits}`;
+}
+
+/** "+380976494909" as "+380 97 649 49 09". Anything that is not a full Ukrainian number is shown as entered. */
+export function formatPhone(phone: string): string {
+  const match = /^\+380(\d{2})(\d{3})(\d{2})(\d{2})$/.exec(phone.trim());
+  return match ? `+380 ${match[1]} ${match[2]} ${match[3]} ${match[4]}` : phone.trim();
+}

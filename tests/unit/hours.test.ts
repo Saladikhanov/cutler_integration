@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { todayHours, type HoursRange } from "@/lib/hours";
+import { groupHours, todayHours, type HoursRange } from "@/lib/hours";
 
 const weekdays: HoursRange = {
   days: ["mon", "tue", "wed", "thu", "fri"],
@@ -52,5 +52,45 @@ describe("todayHours", () => {
       opens: "09:00",
       closes: "17:00",
     });
+  });
+});
+
+describe("groupHours", () => {
+  it("returns null when no hours are entered", () => {
+    expect(groupHours(undefined)).toBeNull();
+    expect(groupHours([])).toBeNull();
+  });
+
+  it("groups consecutive days with the same hours and shows the rest as closed", () => {
+    expect(
+      groupHours([
+        { days: ["mon", "tue", "wed", "thu", "fri", "sat"], opens: "10:00", closes: "20:00" },
+      ]),
+    ).toEqual([
+      {
+        days: ["mon", "tue", "wed", "thu", "fri", "sat"],
+        hours: { opens: "10:00", closes: "20:00" },
+      },
+      { days: ["sun"], hours: null },
+    ]);
+  });
+
+  it("splits when the hours change and keeps week order whatever the entry order", () => {
+    expect(groupHours([saturday, weekdays])).toEqual([
+      { days: ["mon", "tue", "wed", "thu", "fri"], hours: { opens: "10:00", closes: "20:00" } },
+      { days: ["sat"], hours: { opens: "11:00", closes: "18:00" } },
+      { days: ["sun"], hours: null },
+    ]);
+  });
+
+  it("splits days that are not next to each other", () => {
+    const groups = groupHours([{ days: ["mon", "wed"], opens: "10:00", closes: "20:00" }])!;
+    expect(groups.map((g) => g.days)).toEqual([
+      ["mon"],
+      ["tue"],
+      ["wed"],
+      ["thu", "fri", "sat", "sun"],
+    ]);
+    expect(groups[1].hours).toBeNull();
   });
 });

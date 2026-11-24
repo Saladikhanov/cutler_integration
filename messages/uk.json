@@ -7,7 +7,9 @@
   },
   "Nav": {
     "home": "Головна",
-    "barbers": "Барбери"
+    "barbers": "Барбери",
+    "label": "Головна навігація",
+    "footerLabel": "Навігація внизу сторінки"
   },
   "LanguageSwitcher": {
     "label": "Мова",
@@ -24,7 +26,8 @@
   "Consent": {
     "text": "Ми використовуємо аналітику, щоб розуміти, як відвідувачі користуються сайтом. Вона вмикається лише після вашої згоди.",
     "accept": "Прийняти",
-    "decline": "Відхилити"
+    "decline": "Відхилити",
+    "label": "Згода на cookie"
   },
   "NotFound": {
     "title": "Сторінку не знайдено",
@@ -43,5 +46,37 @@
     "bookPrefix": "Записатися:",
     "minutes": "{n} хв",
     "hours": "{n} год"
+  },
+  "Barbers": {
+    "title": "Барбери",
+    "english": "Розмовляє англійською",
+    "works": "Роботи",
+    "viewPage": "Про барбера",
+    "titleAvailable": "Доступні барбери",
+    "all": "Усі барбери",
+    "unavailableGroup": "Зараз не приймають записи",
+    "unavailable": "Зараз не приймає записи",
+    "freeFrom": "Вільний з {date}",
+    "seeAvailable": "Доступні барбери",
+    "freeToday": "Вільний сьогодні",
+    "freeTomorrow": "Вільний завтра",
+    "counter": "Барбер {index} з {count}",
+    "previous": "Попередній барбер",
+    "next": "Наступний барбер",
+    "years": "{n, plural, one {# рік} few {# роки} many {# років} other {# року}}"
+  },
+  "Contact": {
+    "title": "Контакти",
+    "openMap": "Відкрити на мапі",
+    "googleMaps": "Google Maps",
+    "closed": "Зачинено",
+    "networks": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "other": "Соцмережі"
+    },
+    "newTab": "(відкривається в новій вкладці)"
   }
 }

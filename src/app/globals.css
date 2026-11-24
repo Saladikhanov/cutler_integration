@@ -19,6 +19,17 @@
   --on-accent: #222222;
 }
 
+/* Height of the phone Book/Call bar: the page reserves it and the consent banner sits above it. */
+html {
+  --mobile-bar-h: 4.5rem;
+  /* How far up the consent banner sits: above the phone bar only while the bar shows. */
+  --bar-offset: 0px;
+}
+
+html[data-bar="on"] {
+  --bar-offset: var(--mobile-bar-h);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
@@ -87,6 +98,11 @@
   --text-body--letter-spacing: 0;
   --text-body--font-weight: 400;
 
+  --text-lead: clamp(1.25rem, 2.4vw, 1.625rem);
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: 0;
+  --text-lead--font-weight: 400;
+
   --text-ui: 1rem;
   --text-ui--line-height: 1.25;
   --text-ui--letter-spacing: 0;
@@ -109,6 +125,13 @@
     scroll-padding-top: 4.5rem;
   }
 
+  /* On phones the fixed Book/Call bar covers the bottom edge: a focused element must stay above it. */
+  @media (max-width: 47.99rem) {
+    html {
+      scroll-padding-bottom: calc(var(--mobile-bar-h) + 1rem);
+    }
+  }
+
   body {
     background-color: var(--bg);
     color: var(--ink);
@@ -122,6 +145,11 @@
   button {
     touch-action: manipulation;
     -webkit-tap-highlight-color: color-mix(in srgb, var(--ink) 15%, transparent);
+  }
+
+  /* Photos are not dragged around with the mouse (the ghost image on drag looks broken on this site). */
+  img {
+    -webkit-user-drag: none;
   }
 
   h1,
@@ -162,9 +190,25 @@
   transition: transform 350ms cubic-bezier(0.7, 0, 0.2, 1);
 }
 
-.btn-primary:hover::before,
+/*
+  Hover only where the device really hovers (a mouse or trackpad). On a touch screen a finger that starts a scroll on
+  a button used to light it up (the "sticky hover"); there the press feedback comes from :active, which waits a
+  moment, so a touch that turns into a scroll shows nothing and a real tap still does.
+*/
+@media (hover: hover) {
+  .btn-primary:hover::before {
+    transform: none;
+  }
+}
+
 .btn-primary:active::before {
   transform: none;
+}
+
+@media (hover: none) {
+  .btn-primary:active::before {
+    transition-delay: 150ms;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -190,21 +234,46 @@
   transform-origin: left;
 }
 
+/*
+  The fixed bars at the bottom (phone Book/Call bar, cookie banner) have no rule on top: a heavy line there looked like
+  a second section divider. They sit on their own ground (the bar on the surface tone, the banner on the page tone) with
+  a soft shadow cast upward from the ink colour.
+*/
+.bar-shadow {
+  box-shadow: 0 -6px 18px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
 .row-link {
   transition:
     background-color 150ms,
     color 150ms;
 }
 
-.row-link:hover,
+/* Same rule as the buttons: hover only for devices that hover; touch gets :active, after a short wait. */
+@media (hover: hover) {
+  .row-link:hover {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .row-link:hover .row-meta {
+    color: var(--on-accent);
+  }
+}
+
 .row-link:active {
   background-color: var(--accent);
   color: var(--on-accent);
 }
 
-.row-link:hover .row-meta,
 .row-link:active .row-meta {
   color: var(--on-accent);
+}
+
+@media (hover: none) {
+  .row-link:active {
+    transition-delay: 150ms;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -214,12 +283,28 @@
 }
 
 /*
+  The barber's name, giant, behind their head. The size is set per name (--name-size, in vw) so it fits.
+*/
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--name-fs, var(--name-size, 16vw));
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+}
+
+/*
   Motion (docs/design.md): on first load the wordmark rises into place, then the header fades in and
   the tagline and Book button rise; the wordmark drifts sideways as the hero scrolls away. Everything
   uses transform and opacity, and only runs for visitors who have not asked for reduced motion;
   without this block the content is simply there.
 */
 @media (prefers-reduced-motion: no-preference) {
+  /* The consent banner: a few pixels up and a fade, once. */
+  .consent-in {
+    animation: consent-in 350ms ease-out both;
+  }
+
   .rise {
     animation: rise 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
@@ -229,7 +314,16 @@
   }
 
   .lift {
-    animation: lift 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms both;
+    animation: lift 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 350ms both;
+  }
+
+  /* A barber page: the person appears first, then the name rises from behind their head and shoulders. */
+  .person-in {
+    animation: fade-in 700ms ease-out both;
+  }
+
+  .name-in {
+    animation: name-in 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) 400ms both;
   }
 
   @supports (animation-timeline: scroll()) {
@@ -280,6 +374,68 @@
   }
 }
 
+/*
+  The glow behind a barber on his page: a neutral soft light in the theme's own text colour (dark and gentle on the
+  light theme, pale on the dark one), centred on the torso (about 58% down the picture, clipped at the picture's own top and bottom) so it sits under the body and
+  away from the name above the head. Decoration only; no brand colour.
+*/
+.barber-glow {
+  top: 58%;
+  left: 50%;
+  /* Relative to a wrapper that is 150% of the picture wide and exactly as tall, so 90% is 135% of the picture. */
+  width: 90%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--ink) 20%, transparent),
+    color-mix(in srgb, var(--ink) 8%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The photo fades in first (700ms, see .person-in); the glow starts just before that ends and fades in over it,
+     then breathes slowly. */
+  .glow-pulse {
+    animation:
+      glow-in 900ms ease-out 600ms both,
+      glow-pulse 4.5s ease-in-out 1500ms infinite alternate;
+  }
+}
+
+@keyframes glow-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.72;
+  }
+}
+
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes rise {
   from {
     transform: translateY(105%);
@@ -304,6 +460,18 @@
   from {
     opacity: 0;
     transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes name-in {
+  from {
+    opacity: 0;
+    transform: translateY(35%);
   }
 
   to {

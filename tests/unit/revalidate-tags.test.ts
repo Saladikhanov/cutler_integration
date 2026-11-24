@@ -17,6 +17,10 @@ describe("tagsForDocument (contracts/revalidation-webhook.md)", () => {
     expect(tagsForDocument({ _type: "barber", slug: "x".repeat(300) })).toEqual(["barber"]);
   });
 
+  it("maps the daily availability status to the barber tag", () => {
+    expect(tagsForDocument({ _type: "barberAvailability" })).toEqual(["barber"]);
+  });
+
   it("maps the singletons", () => {
     expect(tagsForDocument({ _type: "shopDetails" })).toEqual(["shopDetails"]);
     expect(tagsForDocument({ _type: "siteSettings" })).toEqual(["siteSettings"]);

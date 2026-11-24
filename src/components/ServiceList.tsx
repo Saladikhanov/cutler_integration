@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { BookingButton } from "@/components/BookingButton";
 import { BookingLink } from "@/components/BookingLink";
+import { TrackView } from "@/components/TrackView";
 import { VisuallyHidden } from "@/components/VisuallyHidden";
 import type { Locale } from "@/i18n/routing";
 import { formatDuration, formatPrice } from "@/lib/format";
@@ -43,6 +43,7 @@ export async function ServiceList() {
 
   return (
     <section className="beat px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="services-title">
+      <TrackView event="view_services" />
       <div className="reveal-view grid gap-8 md:grid-cols-3">
         <h2 id="services-title" className="font-display text-display-l">
           {t("title")}
@@ -52,6 +53,7 @@ export async function ServiceList() {
             {rows.map((row) => (
               <li key={row.id} className="border-t border-ink">
                 <BookingLink
+                  location="services"
                   intent={
                     row.productId
                       ? { kind: "service", productId: row.productId }
@@ -71,9 +73,6 @@ export async function ServiceList() {
               </li>
             ))}
           </ul>
-          <div className="mt-8">
-            <BookingButton className="w-full sm:w-auto sm:min-w-56" />
-          </div>
         </div>
       </div>
     </section>

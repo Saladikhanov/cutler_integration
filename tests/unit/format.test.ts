@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatDuration, formatPrice } from "@/lib/format";
+import { formatDuration, formatPhone, formatPrice, phoneHref, yearsSince } from "@/lib/format";
 
 // Intl uses non-breaking spaces between digits and before the currency sign; compare with plain spaces.
 const plain = (s: string) => s.replace(/[  ]/g, " ");
@@ -48,5 +48,34 @@ describe("formatDuration", () => {
     expect(formatDuration(-5, t)).toBe("");
     expect(formatDuration(undefined, t)).toBe("");
     expect(formatDuration(null, t)).toBe("");
+  });
+});
+
+describe("yearsSince", () => {
+  it("counts whole years from a start year", () => {
+    expect(yearsSince(2020, new Date("2026-11-24"))).toBe(6);
+    expect(yearsSince(2026, new Date("2026-11-24"))).toBe(0);
+  });
+
+  it("is null without a start year, so nothing is shown", () => {
+    expect(yearsSince(undefined, new Date("2026-11-24"))).toBeNull();
+    expect(yearsSince(null, new Date("2026-11-24"))).toBeNull();
+  });
+});
+
+describe("phone numbers", () => {
+  it("builds the dial string from the digits only", () => {
+    expect(phoneHref("+380976494909")).toBe("tel:+380976494909");
+    expect(phoneHref("097 649 49 09")).toBe("tel:0976494909");
+    expect(phoneHref("+380 (97) 649-49-09")).toBe("tel:+380976494909");
+    expect(phoneHref("")).toBeNull();
+    expect(phoneHref(null)).toBeNull();
+    expect(phoneHref("call us")).toBeNull();
+  });
+
+  it("groups a Ukrainian number for reading and leaves anything else as entered", () => {
+    expect(formatPhone("+380976494909")).toBe("+380 97 649 49 09");
+    expect(formatPhone("+3800976494909")).toBe("+3800976494909");
+    expect(formatPhone("097 649 49 09")).toBe("097 649 49 09");
   });
 });

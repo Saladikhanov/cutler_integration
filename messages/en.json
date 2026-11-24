@@ -7,7 +7,9 @@
   },
   "Nav": {
     "home": "Home",
-    "barbers": "Barbers"
+    "barbers": "Barbers",
+    "label": "Main",
+    "footerLabel": "Footer"
   },
   "LanguageSwitcher": {
     "label": "Language",
@@ -24,7 +26,8 @@
   "Consent": {
     "text": "We use analytics to understand how visitors use the site. It only turns on after you agree.",
     "accept": "Accept",
-    "decline": "Decline"
+    "decline": "Decline",
+    "label": "Cookie consent"
   },
   "NotFound": {
     "title": "Page not found",
@@ -43,5 +46,37 @@
     "bookPrefix": "Book:",
     "minutes": "{n} min",
     "hours": "{n} h"
+  },
+  "Barbers": {
+    "title": "Barbers",
+    "english": "English speaking",
+    "works": "Works",
+    "viewPage": "About the barber",
+    "titleAvailable": "Available barbers",
+    "all": "All barbers",
+    "unavailableGroup": "Not taking bookings now",
+    "unavailable": "Not taking bookings now",
+    "freeFrom": "Free from {date}",
+    "seeAvailable": "See available barbers",
+    "freeToday": "Free today",
+    "freeTomorrow": "Free tomorrow",
+    "counter": "Barber {index} of {count}",
+    "previous": "Previous barber",
+    "next": "Next barber",
+    "years": "{n, plural, one {# year} other {# years}}"
+  },
+  "Contact": {
+    "title": "Contacts",
+    "openMap": "Open in maps",
+    "googleMaps": "Google Maps",
+    "closed": "Closed",
+    "networks": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "other": "Social media"
+    },
+    "newTab": "(opens in a new tab)"
   }
 }

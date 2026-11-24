@@ -88,7 +88,7 @@ src/
 │   │   ├── layout.tsx              # html lang, fonts, providers, header/footer, mobile bar
 │   │   ├── page.tsx                # home
 │   │   ├── barbers/
-│   │   │   ├── page.tsx            # barbers list + English filter
+│   │   │   ├── page.tsx            # barbers list
 │   │   │   └── [slug]/page.tsx     # eligible barber page
 │   │   └── not-found.tsx
 │   ├── api/revalidate/route.ts     # Sanity webhook
@@ -139,7 +139,7 @@ release-please-config.json           # SemVer tags and changelog from commits
 2. **Localization**: next-intl routing, `proxy.ts`, messages, language switcher keeping the equivalent page, localized not-found.
 3. **Design system**: `docs/design.md`, tokens, font verification, buttons, links, containers, responsive navigation, accessible states (`frontend-design`, then audits).
 4. **CMS and content**: Sanity project owned by the owner, Studio schemas with both-language validation, GROQ queries, tags, webhook route, image helper.
-5. **Public pages**: home (services, location and contact), barbers list with English filter, eligible barber pages, mobile Book/Call bar, structured data.
+5. **Public pages**: home (services, location and contact), barbers list, eligible barber pages, mobile Book/Call bar, structured data.
 6. **Booking handoff**: widget loader, Dnipro and barber deep links, fallback links, locale re-creation, `booking_cta_click` and `booking_widget_open`.
 7. **SEO and analytics**: metadata, canonical and hreflang, sitemap, robots, consent banner, GA4 after consent, events, verification of one page view per navigation.
 8. **Release**: mobile and desktop QA, accessibility checks, link checks, budgets, handover (owner-access-plan), and, with the owner's agreement, a one-time real-booking observation to verify the `/thank-you` signal.

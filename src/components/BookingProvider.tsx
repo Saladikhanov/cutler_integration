@@ -2,6 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
+import { useAnalytics } from "@/components/AnalyticsProvider";
 import { bookingConfig } from "@/lib/booking/config";
 import type { BookingIntent } from "@/lib/booking/intents";
 import { createExitWatcher } from "@/lib/booking/exit";
@@ -38,6 +39,7 @@ type Props = {
  */
 export function BookingProvider({ branchId, fallbackUrl, children }: Props) {
   const locale = useLocale();
+  const { track } = useAnalytics();
 
   const loader = useMemo(
     () =>
@@ -49,15 +51,22 @@ export function BookingProvider({ branchId, fallbackUrl, children }: Props) {
         getConstructor: () =>
           (window as unknown as { EasyWeekWidget?: WidgetConstructor }).EasyWeekWidget,
         timeoutMs: bookingConfig.timeoutMs,
-        // Analytics (booking_widget_open) is wired in with the consent and analytics tasks.
-        onOpen: () => {},
+        onOpen: () => track("booking_widget_open"),
       }),
-    [branchId],
+    [branchId, track],
   );
 
   useEffect(
-    () => listenToWidget({ onWidgetLoaded: loader.notifyFrameLoaded, onPageview: () => {} }),
-    [loader],
+    () =>
+      listenToWidget({
+        onWidgetLoaded: loader.notifyFrameLoaded,
+        // The completion signal is only used once it has been verified (task T091).
+        onPageview: (path) => {
+          if (bookingConfig.completionVerified && path.endsWith("/thank-you"))
+            track("booking_completed");
+        },
+      }),
+    [loader, track],
   );
 
   const exit = useMemo(() => createExitWatcher(() => loader.hide()), [loader]);

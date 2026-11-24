@@ -19,8 +19,8 @@ Every barber has a page. Whatever is not supplied yet is a clearly marked placeh
 ## Barbers page (`/barbers`, `/en/barbers`)
 
 - A **beat** like the services: heavy rule on top, heading **Барбери** / **Barbers** on the left, the cards on the right.
-- **Card** (square, no border): the picture (real or placeholder), name (display-m), position (small, muted), an **English** badge only when the owner confirmed it, a **Book with this barber** button (opens the booking window on that barber with `setUser`, or on the branch when the EasyWeek barber id is missing). The whole card links to the barber's page.
-- **English-speaking filter**: a toggle above the cards that hides the others in the browser; all barbers are in the HTML first, so search engines and no-JavaScript visitors see everyone.
+- **Card** (square, no border): the picture (real or placeholder), name (display-m), position (small, muted), an **English** badge only when the owner confirmed it, a **Book** button (opens the booking window on that barber with `setUser`, or on the branch when the EasyWeek barber id is missing). The whole card links to the barber's page.
+- **English-speaking filter**: removed on 2026-11-24 (few English speakers; it left almost nothing to filter). The English badge stays.
 - Cards in order of the Studio's `order`. No barbers means no page and no navigation link.
 
 ## Barber page (`/barbers/<slug>`, `/en/barbers/<slug>`)
@@ -47,10 +47,10 @@ A **Barbers** link in the header and the footer, shown only when at least one ba
 
 ## Code
 
-`src/lib/sanity/barber-content.ts` (rule and placeholder counts, already written and tested) · `src/components/BarberCard.tsx` · `src/app/[locale]/barbers/page.tsx` · `src/app/[locale]/barbers/[slug]/page.tsx` · `messages` (titles, "English", "Book with this barber", the lorem text, filter label) · header and footer links. Tests: e2e `us4-barbers` against the real dataset until fixtures exist.
+`src/lib/sanity/barber-content.ts` (rule and placeholder counts, already written and tested) · `src/components/BarberCard.tsx` · `src/app/[locale]/barbers/page.tsx` · `src/app/[locale]/barbers/[slug]/page.tsx` · `messages` (titles, "English", the Book button, the lorem text, filter label) · header and footer links. Tests: e2e `us4-barbers` against the real dataset until fixtures exist.
 
 ## Decisions for you
 
 1. **A barbers strip on the home page** (a row of cards under the services, linking to the barbers page), or only the separate page linked from the header and footer?
-2. **English-speaking filter**: build it now, or leave it for later?
+2. **English-speaking filter**: removed (decided 2026-11-24).
 3. **Works layout**: a grid of three (square-ish images) as sketched. OK?
