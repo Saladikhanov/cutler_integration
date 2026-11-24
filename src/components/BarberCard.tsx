@@ -22,7 +22,7 @@ type Props = {
  * A barber on a list: the picture (or the profile placeholder), name, position, an English mark only when the
  * owner confirmed it, and a Book button that opens the booking window on this barber. The picture and name link
  * to the barber's page. A barber who cannot be booked now has a grey picture and a plain label instead of the button. The card is a column that fills its grid row and the button stays at the bottom, so
- * buttons line up when one card has an extra line (the English mark). `data-english` lets the filter hide the others with CSS alone.
+ * buttons line up when one card has an extra line (the English mark).
  */
 export function BarberCard({
   barber,
@@ -36,10 +36,7 @@ export function BarberCard({
   priority,
 }: Props) {
   return (
-    <article
-      data-english={english}
-      className="flex flex-col max-sm:w-[88%] max-sm:shrink-0 max-sm:snap-center"
-    >
+    <article className="flex flex-col max-sm:w-[88%] max-sm:shrink-0 max-sm:snap-center">
       <Link href={`/barbers/${barber.slug}`} className="row-link block flex-1">
         {barber.photo?.asset ? (
           <SanityImage

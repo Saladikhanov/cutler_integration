@@ -98,6 +98,11 @@ html[data-bar="on"] {
   --text-body--letter-spacing: 0;
   --text-body--font-weight: 400;
 
+  --text-lead: clamp(1.25rem, 2.4vw, 1.625rem);
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: 0;
+  --text-lead--font-weight: 400;
+
   --text-ui: 1rem;
   --text-ui--line-height: 1.25;
   --text-ui--letter-spacing: 0;
@@ -286,19 +291,6 @@ html[data-bar="on"] {
   font-size: var(--name-fs, var(--name-size, 16vw));
   line-height: 0.85;
   letter-spacing: -0.01em;
-}
-
-/*
-  English-speaking filter on the barbers list: a checkbox before the grid, and no JavaScript. Every barber is in
-  the HTML; the filter only hides the cards without the English mark while it is checked.
-*/
-.beat:has(#english-filter:checked) [data-english="false"] {
-  display: none;
-}
-
-/* A group with no English-speaking barber disappears whole, heading included. */
-.beat:has(#english-filter:checked) [data-group]:not(:has([data-english="true"])) {
-  display: none;
 }
 
 /*

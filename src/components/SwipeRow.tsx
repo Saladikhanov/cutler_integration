@@ -39,13 +39,10 @@ export function SwipeRow({ className, children }: { className: string; children:
     const frame = requestAnimationFrame(update);
     row.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
-    // The English filter is a checkbox that hides cards with CSS, so recount when it changes.
-    document.addEventListener("change", update);
     return () => {
       cancelAnimationFrame(frame);
       row.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
-      document.removeEventListener("change", update);
     };
   }, []);
 

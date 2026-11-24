@@ -34,11 +34,6 @@ export function isBarberComplete(barber: BarberContentInput): boolean {
   return missingBarberContent(barber).length === 0;
 }
 
-/** How many placeholder slots fill the example works up to MIN_WORKS. */
-export function workPlaceholderCount(works: BarberContentInput["works"]): number {
-  return Math.max(0, MIN_WORKS - realWorks(works).length);
-}
-
 /**
  * The size of the giant name behind the barber, in vw. Each word is its own row, so the size is scaled by the
  * longest word to fit the width (short words are capped), and enough letters stay visible beside the head.

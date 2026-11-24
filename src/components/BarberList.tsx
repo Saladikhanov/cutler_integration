@@ -25,8 +25,7 @@ function formatDay(nextFree: string, locale: Locale) {
  * The barbers. Every barber has a card and a page with their bio; who can be booked comes from the daily EasyWeek
  * check. The barbers page lists the ones who can be booked first (soonest free time at the top), then the others in
  * their own group without a Book button. The home page shows only the ones who can be booked, with a link to all.
- * All cards are in the HTML; the "English speaking" filter (shown only when someone is marked English) is a
- * checkbox that CSS uses to hide the others, so it works without JavaScript. With no barbers there is no section.
+ * With no barbers there is no section.
  */
 export async function BarberList({ variant = "all" }: Props) {
   const [locale, t, barbers] = await Promise.all([
@@ -56,7 +55,6 @@ export async function BarberList({ variant = "all" }: Props) {
   const shown = variant === "home" && available.length > 0 ? available : cards;
   const grouped = variant === "all" && available.length > 0 && others.length > 0;
   if (shown.length === 0) return null;
-  const hasEnglish = shown.some((card) => card.english);
   const onlyAvailable = variant === "home" && available.length > 0;
   // The barbers page is a page of its own: its title is the page heading (h1); on the home page it is a section (h2).
   const Heading = variant === "all" ? "h1" : "h2";
@@ -96,17 +94,6 @@ export async function BarberList({ variant = "all" }: Props) {
           <Heading id="barbers-title" className="font-display text-display-l">
             {onlyAvailable ? t("titleAvailable") : t("title")}
           </Heading>
-          {hasEnglish && (
-            <div className="mt-6">
-              <input type="checkbox" id="english-filter" className="peer sr-only" />
-              <label
-                htmlFor="english-filter"
-                className="inline-flex min-h-11 cursor-pointer items-center bg-surface px-4 text-ui peer-checked:bg-accent peer-checked:text-on-accent peer-checked:before:mr-2 peer-checked:before:content-['✓'] peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-ink"
-              >
-                {t("filter")}
-              </label>
-            </div>
-          )}
           {onlyAvailable && (
             <Link
               href="/barbers"
@@ -119,10 +106,10 @@ export async function BarberList({ variant = "all" }: Props) {
         <div className="min-w-0 md:col-span-2">
           {grouped ? (
             <>
-              <div data-group>
+              <div>
                 <SwipeRow className={grid}>{available.map(cardFor)}</SwipeRow>
               </div>
-              <div data-group className="mt-16">
+              <div className="mt-16">
                 <h3 className="mb-8 font-display text-display-m">{t("unavailableGroup")}</h3>
                 <SwipeRow className={grid}>{others.map((card) => cardFor(card, 1))}</SwipeRow>
               </div>

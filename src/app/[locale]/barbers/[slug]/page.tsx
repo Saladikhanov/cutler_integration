@@ -65,36 +65,32 @@ async function BarberContent({ params }: Props) {
         englishLabel={t("english")}
         unavailableLabel={t("unavailable")}
       />
-      <section className="beat px-4 py-16 sm:px-6 sm:py-24">
-        <div className="reveal-view grid gap-8 md:grid-cols-3">
-          <div className="md:col-span-2 md:col-start-2">
-            {description ? (
-              <p className="max-w-prose text-body">{description}</p>
-            ) : (
-              <p data-placeholder="text" className="max-w-prose text-body text-muted">
-                {t("placeholderText")}
-              </p>
-            )}
-            <div className="mt-8">
-              {barber.bookable ? (
-                <BookingButton
-                  location="barber_page"
-                  barberSlug={barber.slug}
-                  intent={{ kind: "barber", userId: barber.easyweekUserId ?? undefined }}
-                  className="w-full max-md:hidden sm:w-auto sm:min-w-56"
-                />
-              ) : (
-                <Link
-                  href="/barbers"
-                  className="inline-flex min-h-11 items-center bg-surface px-4 text-ui"
-                >
-                  {t("seeAvailable")}
-                </Link>
-              )}
+      {description && (
+        <section className="beat px-4 py-16 sm:px-6 sm:py-24">
+          <div className="reveal-view grid gap-8 md:grid-cols-3">
+            <div className="md:col-span-2 md:col-start-2">
+              <p className="max-w-[44ch] text-lead">{description}</p>
+              <div className="mt-8">
+                {barber.bookable ? (
+                  <BookingButton
+                    location="barber_page"
+                    barberSlug={barber.slug}
+                    intent={{ kind: "barber", userId: barber.easyweekUserId ?? undefined }}
+                    className="w-full max-md:hidden sm:w-auto sm:min-w-56"
+                  />
+                ) : (
+                  <Link
+                    href="/barbers"
+                    className="inline-flex min-h-11 items-center bg-surface px-4 text-ui"
+                  >
+                    {t("seeAvailable")}
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       <BarberWorks
         works={barber.works}
         alts={(barber.works ?? []).map((work) => pickLocale(work?.alt, locale))}

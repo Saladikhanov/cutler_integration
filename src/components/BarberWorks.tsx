@@ -1,11 +1,8 @@
-import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
 import { SanityImage } from "@/components/SanityImage";
-import { workPlaceholderCount } from "@/lib/sanity/barber-content";
 import type { Barber } from "@/lib/sanity/queries";
 
 /**
- * Example works: the real photos first, then placeholder slots up to three, so the page never looks empty
- * (and every placeholder must be gone before launch).
+ * Example works: the real photos only. With none, the whole section is left out rather than showing empty slots.
  */
 export function BarberWorks({
   works,
@@ -19,7 +16,7 @@ export function BarberWorks({
   const real = (works ?? []).flatMap((work, index) =>
     work?.asset ? [{ work, alt: alts[index] ?? "" }] : [],
   );
-  const placeholders = workPlaceholderCount(works);
+  if (real.length === 0) return null;
 
   return (
     <section className="beat px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="works-title">
@@ -36,13 +33,6 @@ export function BarberWorks({
               width={800}
               sizes="(min-width: 768px) 22vw, 90vw"
               className="aspect-square w-full object-cover"
-            />
-          ))}
-          {Array.from({ length: placeholders }, (_, index) => (
-            <PhotoPlaceholder
-              key={`placeholder-${index}`}
-              kind="place"
-              className="aspect-square w-full"
             />
           ))}
         </div>

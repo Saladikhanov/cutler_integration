@@ -86,8 +86,8 @@ A visitor opens the barbers page to see the barbers and their work, to choose so
 1. **Given** approved barber content exists, **When** a visitor opens the barbers page, **Then** each barber appears with an approved name and photo, and a bio only if approved.
 2. **Given** no approved barber content exists, **When** the site is published, **Then** the barbers page, its navigation link and its sitemap entry are not shown.
 3. **Given** any image, **When** it is displayed, **Then** it is a real CUTLER photo with a meaningful text alternative.
-4. **Given** the owner has confirmed which barbers speak English, **When** a visitor filters the barbers by "English-speaking", **Then** only those barbers are shown, and each shows an English badge.
-5. **Given** a barber has not been confirmed as English-speaking, **When** the barbers are filtered, **Then** that barber is not marked or shown as English-speaking.
+4. **Given** the owner has confirmed which barbers speak English, **When** a visitor views the barbers, **Then** each of those barbers shows an English badge. (There is no English-speaking filter: removed 2026-11-24, only a few barbers speak English, so it left almost nothing to filter.)
+5. **Given** a barber has not been confirmed as English-speaking, **When** the barbers are shown, **Then** that barber is not marked as English-speaking.
 6. **Given** a barber has an approved description and examples of work, **When** a visitor selects that barber's card, **Then** a page opens with a hero image, the short description, the examples of work and a Book button.
 7. **Given** a barber has no approved description and examples of work, **When** the barbers page is shown, **Then** that barber appears as a card with a Book button and no link to a page of their own.
 8. **Given** a Book button, **When** the visitor activates it, **Then** the booking flow opens for that barber in the visitor's current language.

@@ -50,9 +50,7 @@
   "Barbers": {
     "title": "Барбери",
     "english": "Розмовляє англійською",
-    "filter": "Розмовляють англійською",
     "works": "Роботи",
-    "placeholderText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "viewPage": "Про барбера",
     "titleAvailable": "Доступні барбери",
     "all": "Усі барбери",

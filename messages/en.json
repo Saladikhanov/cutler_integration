@@ -50,9 +50,7 @@
   "Barbers": {
     "title": "Barbers",
     "english": "English speaking",
-    "filter": "English speaking",
     "works": "Works",
-    "placeholderText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "viewPage": "About the barber",
     "titleAvailable": "Available barbers",
     "all": "All barbers",

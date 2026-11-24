@@ -29,7 +29,7 @@ Each maps to a user story or requirement in the spec.
 | V2 | First-load HTML has the content (FR-027, SC-010) | `curl` each route; then Playwright with JavaScript disabled | Headings, text, services, shop details, alt text, metadata, JSON-LD, language links, and booking links are all present |
 | V3 | Language switching (US2, FR-009) | From each page switch language both ways | The equivalent page opens; no untranslated text; unknown paths give a localized 404 |
 | V4 | Services and prices (US3, FR-005, FR-006) | With and without price and duration on a service | Price and duration appear only when set |
-| V5 | Barbers list and pages (US4, FR-007, FR-026) | With one eligible barber and one without a description | Both appear as cards; only the eligible one links to a page; the sitemap lists only the eligible page; English filter shows only confirmed English speakers |
+| V5 | Barbers list and pages (US4, FR-007, FR-026) | With one eligible barber and one without a description | Both appear as cards; only the eligible one links to a page; the sitemap lists only the eligible page; only confirmed English speakers carry the English badge |
 | V6 | Contact (US5, FR-008, FR-028) | Open the contact section and the mobile bar on a phone | Address, hours and phone shown only if confirmed; tapping Call starts a call; the bar hides Call when no phone is set |
 | V7 | Booking button fallback (FR-003, FR-024) | Disable scripts, or stub `widget.js` to fail | Every Book button is a working link to the fallback page |
 | V8 | Widget opens in the right language (FR-024) | Stub widget: click Book on `/` and `/en`. Real widget (manual): same, closing without booking | Opens on Dnipro in Ukrainian on `/` and English on `/en`; closes cleanly |
