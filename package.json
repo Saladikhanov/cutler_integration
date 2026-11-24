@@ -17,9 +17,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "lhci": "lhci autorun"
+    "lhci": "lhci autorun",
+    "check:easyweek": "node scripts/check-easyweek.mjs"
   },
   "dependencies": {
+    "@next/third-parties": "16.4.6",
     "@sanity/client": "8.14.1",
     "@sanity/image-url": "2.1.1",
     "next": "16.4.6",
