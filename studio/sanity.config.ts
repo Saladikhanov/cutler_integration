@@ -33,6 +33,13 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem("service").title("Services"),
             S.documentTypeListItem("barber").title("Barbers"),
+            S.divider(),
+            S.listItem()
+              .title("Barber availability (automatic)")
+              .id("barberAvailability")
+              .child(
+                S.document().schemaType("barberAvailability").documentId("barberAvailability"),
+              ),
           ]),
     }),
   ],

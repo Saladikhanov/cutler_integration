@@ -18,6 +18,7 @@
 |---|---|
 | `service` | `service` |
 | `barber` | `barber`, `barber:<slug>` |
+| `barberAvailability` | `barber` (saved by the daily EasyWeek check, see docs/easyweek-check.md) |
 | `shopDetails` | `shopDetails` |
 | `siteSettings` | `siteSettings` |
 | anything else | none (200, ignored) |

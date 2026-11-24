@@ -16,6 +16,8 @@ export function tagsForDocument(document: PublishedDocument): string[] {
       const usable = typeof slug === "string" && slug.length <= MAX_SLUG_LENGTH && SLUG.test(slug);
       return usable ? [TAGS.barber, TAGS.barberSlug(slug)] : [TAGS.barber];
     }
+    case "barberAvailability":
+      return [TAGS.barber];
     case "shopDetails":
       return [TAGS.shopDetails];
     case "siteSettings":
