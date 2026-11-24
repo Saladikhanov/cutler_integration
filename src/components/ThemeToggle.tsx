@@ -3,7 +3,10 @@
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 import {
+  applyThemeColor,
+  clearStoredTheme,
   parseStoredTheme,
+  resetThemeColor,
   resolveTheme,
   writeStoredTheme,
   type ThemeChoice,
@@ -20,12 +23,26 @@ function currentTheme(): ThemeChoice {
   return resolveTheme(applied, window.matchMedia(DARK_QUERY).matches);
 }
 
+const deviceTheme = (): ThemeChoice => (window.matchMedia(DARK_QUERY).matches ? "dark" : "light");
+
+// When the device switches between light and dark, a manual choice made before no longer applies: it is dropped
+// and the page follows the device again, so the site stays in sync with the device setting.
+function followDevice() {
+  document.documentElement.removeAttribute("data-theme");
+  clearStoredTheme(window.localStorage);
+  resetThemeColor();
+}
+
 function subscribe(onChange: () => void) {
   const query = window.matchMedia(DARK_QUERY);
-  query.addEventListener("change", onChange);
+  const onDeviceChange = () => {
+    followDevice();
+    onChange();
+  };
+  query.addEventListener("change", onDeviceChange);
   window.addEventListener(CHANGE_EVENT, onChange);
   return () => {
-    query.removeEventListener("change", onChange);
+    query.removeEventListener("change", onDeviceChange);
     window.removeEventListener(CHANGE_EVENT, onChange);
   };
 }
@@ -42,8 +59,14 @@ export function ThemeToggle() {
 
   function toggle() {
     const next: ThemeChoice = currentTheme() === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    writeStoredTheme(window.localStorage, next);
+    if (next === deviceTheme()) {
+      // Back to what the device already is: no override needed, the site simply follows the device.
+      followDevice();
+    } else {
+      document.documentElement.setAttribute("data-theme", next);
+      applyThemeColor(next);
+      writeStoredTheme(window.localStorage, next, deviceTheme());
+    }
     window.dispatchEvent(new Event(CHANGE_EVENT));
   }
 
