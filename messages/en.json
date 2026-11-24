@@ -64,7 +64,8 @@
     "freeTomorrow": "Free tomorrow",
     "counter": "Barber {index} of {count}",
     "previous": "Previous barber",
-    "next": "Next barber"
+    "next": "Next barber",
+    "years": "{n, plural, one {# year} other {# years}}"
   },
   "Contact": {
     "title": "Contacts",

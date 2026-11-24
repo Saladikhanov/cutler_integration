@@ -48,6 +48,7 @@ async function BarberContent({ params }: Props) {
   const description = withExperienceYears(
     pickLocale(barber.shortDescription, locale),
     barber.experienceYears,
+    (n) => t("years", { n }),
   );
 
   return (

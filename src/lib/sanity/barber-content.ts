@@ -65,13 +65,15 @@ export function firstName(name: string): string {
 }
 
 /**
- * Fills a `{years}` placeholder in a barber's description with their current years of experience, so the
- * number stays correct without editing the text every year. Text without the placeholder is returned as is.
+ * Fills a `{years}` placeholder in a barber's description with their current years of experience, number and unit
+ * together ("4 роки", "5 років", "1 year"), so the text stays correct without editing it every year. `format`
+ * writes the number with its unit in the page's language. Text without the placeholder is returned as is.
  */
 export function withExperienceYears(
   text: string | undefined,
   years: number | null,
+  format: (years: number) => string,
 ): string | undefined {
   if (!text) return text;
-  return years === null ? text : text.replaceAll("{years}", String(years));
+  return years === null ? text : text.replaceAll("{years}", format(years));
 }

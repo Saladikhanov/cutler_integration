@@ -1,4 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { createTranslator } from "next-intl";
+import enMessages from "../../messages/en.json";
+import ukMessages from "../../messages/uk.json";
 import {
   firstName,
   MIN_WORKS,
@@ -108,31 +111,54 @@ describe("heroNameRows", () => {
 });
 
 describe("withExperienceYears (fills a {years} placeholder in a description)", () => {
-  it("replaces the placeholder with the given years", () => {
-    expect(withExperienceYears("Barber with {years} years of experience.", 4)).toBe(
-      "Barber with 4 years of experience.",
-    );
+  const en = (n: number) => `${n} ${n === 1 ? "year" : "years"}`;
+
+  it("replaces the placeholder with the number and its unit", () => {
+    expect(withExperienceYears("{years} in barbering!", 4, en)).toBe("4 years in barbering!");
+    expect(withExperienceYears("{years} in barbering!", 1, en)).toBe("1 year in barbering!");
   });
 
   it("replaces every occurrence", () => {
-    expect(withExperienceYears("{years} years! {years} years of craft.", 6)).toBe(
+    expect(withExperienceYears("{years}! {years} of craft.", 6, en)).toBe(
       "6 years! 6 years of craft.",
     );
   });
 
   it("leaves text without a placeholder untouched", () => {
-    expect(withExperienceYears("No years mentioned here.", 6)).toBe("No years mentioned here.");
+    expect(withExperienceYears("No years mentioned here.", 6, en)).toBe("No years mentioned here.");
   });
 
   it("leaves the placeholder as is when there are no years to fill in", () => {
-    expect(withExperienceYears("Barber with {years} years.", null)).toBe(
-      "Barber with {years} years.",
-    );
+    expect(withExperienceYears("{years} in barbering.", null, en)).toBe("{years} in barbering.");
   });
 
   it("passes through undefined and empty text unchanged", () => {
-    expect(withExperienceYears(undefined, 6)).toBeUndefined();
-    expect(withExperienceYears("", 6)).toBe("");
+    expect(withExperienceYears(undefined, 6, en)).toBeUndefined();
+    expect(withExperienceYears("", 6, en)).toBe("");
+  });
+});
+
+describe("the years message (plural forms in both languages)", () => {
+  const messages = { uk: ukMessages, en: enMessages };
+  const years = (locale: "uk" | "en", n: number) =>
+    createTranslator({ locale, messages: messages[locale], namespace: "Barbers" })("years", { n });
+
+  it("uses the right Ukrainian form", () => {
+    expect([1, 2, 4, 5, 11, 12, 21, 22, 25].map((n) => years("uk", n))).toEqual([
+      "1 рік",
+      "2 роки",
+      "4 роки",
+      "5 років",
+      "11 років",
+      "12 років",
+      "21 рік",
+      "22 роки",
+      "25 років",
+    ]);
+  });
+
+  it("uses the right English form", () => {
+    expect([years("en", 1), years("en", 4)]).toEqual(["1 year", "4 years"]);
   });
 });
 

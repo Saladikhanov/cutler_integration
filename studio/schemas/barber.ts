@@ -72,7 +72,7 @@ export const barber = defineType({
       name: "shortDescription",
       title: "Short description",
       description:
-        'Both languages. Until it is written the page shows placeholder text, and the page is not indexed by search engines. If it mentions years of experience, write {years} instead of the number (for example "Barber with {years} years of experience") — it is filled in from the field below and stays current on its own.',
+        'Both languages. Until it is written the page shows placeholder text, and the page is not indexed by search engines. If it mentions years of experience, write {years} instead of the number and the word for years, for example "{years} in barbering!". The site fills in the number with the right word ("4 years" in English, "4 роки" or "5 років" in Ukrainian) and keeps it current on its own.',
     }),
     defineField({
       name: "experienceSinceYear",

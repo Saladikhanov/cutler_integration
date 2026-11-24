@@ -64,7 +64,8 @@
     "freeTomorrow": "Вільний завтра",
     "counter": "Барбер {index} з {count}",
     "previous": "Попередній барбер",
-    "next": "Наступний барбер"
+    "next": "Наступний барбер",
+    "years": "{n, plural, one {# рік} few {# роки} many {# років} other {# року}}"
   },
   "Contact": {
     "title": "Контакти",
