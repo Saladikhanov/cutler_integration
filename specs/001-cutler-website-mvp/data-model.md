@@ -38,9 +38,9 @@ Rules: a service with no verified price or duration shows only the name and desc
 | heroImage | LocalizedImage | optional |
 | works | list of LocalizedImage | examples of work; the page shows placeholder slots up to a minimum of 3 |
 | order | integer | required |
-| easyweekUserId | string | needed for "Book with this barber" (FR-030) |
+| easyweekUserId | string | needed for the Book button (FR-030) |
 
-**Page content rule** (FR-026): every barber has a page. Anything not supplied is a placeholder: a profile-picture placeholder for a missing `photo`, placeholder text (lorem ipsum) for a missing `shortDescription` in the language of the page, and placeholder slots so that at least 3 example works are shown. A page is *complete* only with a photo, a description in both languages and at least 3 work images (`src/lib/sanity/barber-content.ts`); only complete pages are indexed and in the sitemap, and every placeholder must be gone before launch. The card's "Book with this barber" button needs `easyweekUserId`; without it the card's button opens the Dnipro branch booking instead.
+**Page content rule** (FR-026): every barber has a page. Anything not supplied is a placeholder: a profile-picture placeholder for a missing `photo`, placeholder text (lorem ipsum) for a missing `shortDescription` in the language of the page, and placeholder slots so that at least 3 example works are shown. A page is *complete* only with a photo, a description in both languages and at least 3 work images (`src/lib/sanity/barber-content.ts`); only complete pages are indexed and in the sitemap, and every placeholder must be gone before launch. The card's Book button needs `easyweekUserId`; without it the card's button opens the Dnipro branch booking instead.
 
 **English filter**: shows barbers whose `languages` contain `en` (FR in User Story 4). A barber is never marked English-speaking unless confirmed.
 

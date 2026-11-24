@@ -20,7 +20,7 @@ for (const { path, title, first, book, price } of locales) {
       for (const row of await rows.all()) await expect(row).toContainText(price);
     });
 
-    test("each row is a link that opens booking, and a Book button follows the list", async ({
+    test("each row is a link that opens booking, with no extra Book button after the list", async ({
       page,
     }) => {
       await page.route("**/widget.js", (route) =>
@@ -36,7 +36,8 @@ for (const { path, title, first, book, price } of locales) {
       });
       const row = section.getByRole("listitem").first().getByRole("link");
       await expect(row).toHaveAttribute("href", /^https:\/\/cutler\.easyweek\.com\.ua\/?$/);
-      await expect(section.getByRole("link", { name: book, exact: true })).toBeVisible();
+      // The rows are the actions; a repeated Book button after them was removed (2026-11-01 review).
+      await expect(section.getByRole("link", { name: book, exact: true })).toHaveCount(0);
       await row.click();
       await expect
         .poll(() => page.evaluate(() => (window as never as { __calls: string[] }).__calls))

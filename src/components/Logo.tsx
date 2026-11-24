@@ -25,7 +25,7 @@ export function Logo({ variant = "full", className = "" }: LogoProps) {
       role="img"
       aria-label={t("logoLabel")}
       translate="no"
-      className={`block bg-current ${className}`.trim()}
+      className={`block bg-current [forced-color-adjust:none] ${className}`.trim()}
       style={{
         aspectRatio: ratio,
         maskImage: `url(${src})`,

@@ -38,3 +38,40 @@ export function isBarberComplete(barber: BarberContentInput): boolean {
 export function workPlaceholderCount(works: BarberContentInput["works"]): number {
   return Math.max(0, MIN_WORKS - realWorks(works).length);
 }
+
+/**
+ * The size of the giant name behind the barber, in vw. Each word is its own row, so the size is scaled by the
+ * longest word to fit the width (short words are capped), and enough letters stay visible beside the head.
+ */
+export function heroNameSize(name: string): number {
+  const longest = Math.max(
+    1,
+    ...name
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => [...word].length),
+  );
+  return Math.min(22, Math.round((80 / (longest * 0.5)) * 10) / 10);
+}
+
+/** The rows the name is set in: one per word. */
+export function heroNameRows(name: string): string[] {
+  return name.split(/\s+/).filter(Boolean);
+}
+
+/** The first word of a name, cut at the first space: "Ян Жигадло" gives "Ян", "Ivan / English speaking" gives "Ivan". */
+export function firstName(name: string): string {
+  return name.trim().split(/\s+/)[0] ?? "";
+}
+
+/**
+ * Fills a `{years}` placeholder in a barber's description with their current years of experience, so the
+ * number stays correct without editing the text every year. Text without the placeholder is returned as is.
+ */
+export function withExperienceYears(
+  text: string | undefined,
+  years: number | null,
+): string | undefined {
+  if (!text) return text;
+  return years === null ? text : text.replaceAll("{years}", String(years));
+}
