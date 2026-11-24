@@ -14,7 +14,7 @@
 
 - Q: Should the MVP be one page per language or separate pages? → A: Option C: a home page (what CUTLER offers, services, location and contact) plus a separate barbers page, each in both languages.
 - Q: How should the light or dark theme be chosen? → A: Option A: the site follows the visitor's device setting by default and offers a manual toggle in the header that remembers the choice.
-- Q: Should each barber get their own page, or one list with a card per barber? → A: A list with a card per barber and a "Book with this barber" button on each card; a barber who has an approved description and examples of work also gets their own page (hero image, short description, examples of work, booking button), which the card links to (Option E2).
+- Q: Should each barber get their own page, or one list with a card per barber? → A: A list with a card per barber and a Book button on each card; a barber who has an approved description and examples of work also gets their own page (hero image, short description, examples of work, booking button), which the card links to (Option E2).
 - Q: Should the MVP show customer reviews or a rating? → A: Option A: no reviews or rating in the MVP; the contact section links to the shop's Google Maps listing.
 - Q: On a phone, how prominent should "Call" be compared with "Book"? → A: Option A: a sticky bottom bar on mobile with "Book" as the primary action and "Call" as the secondary one, on every page.
 - Q: Should analytics load behind a consent banner or for everyone? → A: Option A: a small consent banner; Google Analytics loads only after the visitor accepts, and the visitor can change their choice later.
@@ -88,9 +88,9 @@ A visitor opens the barbers page to see the barbers and their work, to choose so
 3. **Given** any image, **When** it is displayed, **Then** it is a real CUTLER photo with a meaningful text alternative.
 4. **Given** the owner has confirmed which barbers speak English, **When** a visitor filters the barbers by "English-speaking", **Then** only those barbers are shown, and each shows an English badge.
 5. **Given** a barber has not been confirmed as English-speaking, **When** the barbers are filtered, **Then** that barber is not marked or shown as English-speaking.
-6. **Given** a barber has an approved description and examples of work, **When** a visitor selects that barber's card, **Then** a page opens with a hero image, the short description, the examples of work and a "Book with this barber" button.
-7. **Given** a barber has no approved description and examples of work, **When** the barbers page is shown, **Then** that barber appears as a card with a "Book with this barber" button and no link to a page of their own.
-8. **Given** a "Book with this barber" button, **When** the visitor activates it, **Then** the booking flow opens for that barber in the visitor's current language.
+6. **Given** a barber has an approved description and examples of work, **When** a visitor selects that barber's card, **Then** a page opens with a hero image, the short description, the examples of work and a Book button.
+7. **Given** a barber has no approved description and examples of work, **When** the barbers page is shown, **Then** that barber appears as a card with a Book button and no link to a page of their own.
+8. **Given** a Book button, **When** the visitor activates it, **Then** the booking flow opens for that barber in the visitor's current language.
 
 ---
 
@@ -173,7 +173,7 @@ The owner can find the site through search and share links, and can see how visi
 - **FR-027**: All indexable content (text, headings, services, barbers, shop details, image text alternatives, metadata, structured business data, and language links) MUST be present in the HTML delivered on first load, without needing scripts to run, so search engines and link previews see the full page. Booking functionality MAY load after the page, but MUST NOT delay or block the main content.
 - **FR-028**: On phones, every page MUST show a persistent bottom bar with a primary "Book" action and a secondary "Call" action that starts a phone call to the confirmed shop number. The bar MUST NOT cover content, focus or the consent banner's controls, and "Call" taps MUST be recorded as `click_contact` once consent is given. The "Call" action MUST be hidden until the owner confirms the phone number.
 - **FR-029**: The MVP MUST NOT display customer reviews, ratings or review counts. The contact section MUST link to the shop's Google Maps listing once the owner confirms the link.
-- **FR-030**: Each barber card and each barber page MUST offer a "Book with this barber" button that opens the booking flow for that barber, in the visitor's current language.
+- **FR-030**: Each barber card and each barber page MUST offer a Book button that opens the booking flow for that barber, in the visitor's current language.
 - **FR-031**: The site MUST offer a light and a dark theme. By default it MUST follow the visitor's device setting, and a toggle in the header MUST let the visitor switch and MUST remember the choice in the browser. The theme MUST be applied before the page is first shown (no flash of the wrong theme), MUST follow the device setting when scripts are off or storage is unavailable, and MUST meet WCAG 2.1 AA contrast in both themes. The stored choice stays on the device and is not sent anywhere.
 
 ### Key Entities
